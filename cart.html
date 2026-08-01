@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriGuardian AI — Shopping Cart</title>
+    <link rel="shortcut icon" href="images/head.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/custom.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#F3F5EC',
+                        paperdeep: '#E7EBDA',
+                        ink: '#1C2618',
+                        inksoft: '#4A5741',
+                        canopy: '#2F5233',
+                        canopylight: '#4F7A52',
+                        soil: '#8B5E34',
+                        irrigation: '#2F6690',
+                        amber: '#B8710F',
+                        rust: '#A8452F',
+                        line: '#D4DAC4',
+                    },
+                    fontFamily: {
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace'],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="bg-paper text-ink font-body antialiased">
+
+    <header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2.5 font-display font-semibold text-lg tracking-tight">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-canopy">
+                    <img class="h-[50px]" src="images/head.png" alt="logo" onerror="this.style.display='none'">
+                </svg>
+                AgriGuardian <span class="text-canopy">AI</span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-inksoft">
+                <a href="index.html" class="hover:text-ink transition-colors">Home</a>
+                <a href="farmer.html" class="hover:text-ink transition-colors">Farmers Shop</a>
+                <a href="consumer.html" class="hover:text-ink transition-colors">Consumer Shop</a>
+                <a href="diseases.html" class="hover:text-ink transition-colors">Disease Detection</a>
+            </nav>
+
+            <div class="flex items-center gap-6">
+                <a href="cart.html" class="relative text-canopy transition-colors" title="View Cart">
+                    <i class="fa-solid fa-cart-shopping text-lg"></i>
+                    <span id="nav-cart-badge"
+                        class="absolute -top-1.5 -right-2 bg-amber text-paper text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border border-paper">
+                        0
+                    </span>
+                </a>
+                <a href="diseases.html#scanner-section"
+                    class="text-sm font-medium border border-canopy text-canopy px-4 py-2 rounded-full hover:bg-canopy hover:text-paper transition-colors hidden sm:block">
+                    Try a scan
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="max-w-4xl mx-auto px-6 sm:px-8 pt-16 pb-20">
+        <h1 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight text-ink mb-10">Your Cart</h1>
+
+        <div class="grid lg:grid-cols-[1fr_350px] gap-10 items-start">
+
+            <div id="cart-container" class="flex flex-col gap-4">
+            </div>
+
+            <div class="rounded-2xl border border-line bg-white p-6 shadow-sm sticky top-24">
+                <h2 class="font-display font-medium text-xl text-ink mb-5">Order Summary</h2>
+                <div class="flex justify-between items-center mb-3 text-sm text-inksoft">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal" class="font-mono text-ink">Rs. 0</span>
+                </div>
+                <div class="flex justify-between items-center mb-5 text-sm text-inksoft pb-5 border-b border-line">
+                    <span>Estimated Shipping</span>
+                    <span class="font-mono text-ink">Rs. 50</span>
+                </div>
+                <div class="flex justify-between items-center mb-6 text-lg font-medium text-ink">
+                    <span>Total</span>
+                    <span id="cart-total" class="font-mono text-canopy font-bold">Rs. 50</span>
+                </div>
+
+                <button onclick="checkout()"
+                    class="w-full font-mono text-[13px] uppercase tracking-wider font-medium text-paper bg-canopy rounded-lg px-4 py-3 hover:bg-ink transition shadow-sm">
+                    Proceed to Checkout
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Load cart on page load
+        document.addEventListener("DOMContentLoaded", renderCart);
+
+        function renderCart() {
+            const cartContainer = document.getElementById("cart-container");
+            const badge = document.getElementById("nav-cart-badge");
+            const subtotalEl = document.getElementById("cart-subtotal");
+            const totalEl = document.getElementById("cart-total");
+
+            // Fetch cart from local storage
+            let cart = JSON.parse(localStorage.getItem("agriCart")) || [];
+            badge.innerText = cart.length;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `
+          <div class="text-center py-10 border-2 border-dashed border-line rounded-xl">
+            <i class="fa-solid fa-basket-shopping text-4xl text-line mb-4"></i>
+            <p class="text-inksoft">Your cart is currently empty.</p>
+            <a href="farmer.html" class="inline-block mt-4 text-sm font-medium text-canopy hover:underline">Continue shopping</a>
+          </div>`;
+                subtotalEl.innerText = "Rs. 0";
+                totalEl.innerText = "Rs. 0";
+                return;
+            }
+
+            // Generate HTML for cart items
+            let html = "";
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                subtotal += item.price;
+                html += `
+          <div class="rounded-xl border border-line bg-white p-4 flex items-center gap-5">
+            <img class="w-20 h-20 object-cover rounded-lg bg-paperdeep" src="${item.image}" alt="${item.name}" onerror="this.src=''">
+            <div class="flex-1">
+              <h3 class="font-display font-medium text-ink">${item.name}</h3>
+              <p class="font-mono text-sm font-medium text-ink mt-2">Rs. ${item.price}</p>
+            </div>
+            <button onclick="removeFromCart(${index})" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-rust/10 text-rust transition" title="Remove item">
+              <i class="fa-solid fa-trash-can text-sm"></i>
+            </button>
+          </div>
+        `;
+            });
+
+            cartContainer.innerHTML = html;
+            subtotalEl.innerText = `Rs. ${subtotal}`;
+            totalEl.innerText = `Rs. ${subtotal + 50}`; // Adding Rs. 50 shipping
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem("agriCart")) || [];
+            cart.splice(index, 1); // Remove item at specific index
+            localStorage.setItem("agriCart", JSON.stringify(cart));
+            renderCart(); // Re-render UI
+        }
+
+        function checkout() {
+            let cart = JSON.parse(localStorage.getItem("agriCart")) || [];
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            alert("Order placed successfully! (This is a frontend prototype)");
+            localStorage.removeItem("agriCart");
+            renderCart();
+        }
+    </script>
+</body>
+
+</html>

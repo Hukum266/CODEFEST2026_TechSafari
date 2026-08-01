@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriGuardian AI — Disease Detection</title>
+  <link rel="shortcut icon" href="images/head.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/custom.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F3F5EC',
+            paperdeep: '#E7EBDA',
+            ink: '#1C2618',
+            inksoft: '#4A5741',
+            canopy: '#2F5233',
+            canopylight: '#4F7A52',
+            soil: '#8B5E34',
+            irrigation: '#2F6690',
+            amber: '#B8710F',
+            rust: '#A8452F',
+            line: '#D4DAC4',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="bg-paper text-ink font-body antialiased">
+
+  <header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-display font-semibold text-lg tracking-tight">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-canopy">
+          <img class="h-[50px]" src="images/head.png" alt="logo">
+        </svg>
+        AgriGuardian <span class="text-canopy">AI</span>
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-inksoft">
+        <a href="index.html" class="hover:text-ink transition-colors">Home</a>
+        <a href="farmer.html" class="hover:text-ink transition-colors">Farmers Shop</a>
+        <a href="consumer.html" class="hover:text-ink transition-colors">Consumer Shop</a>
+        <a href="diseases.html" class="text-canopy transition-colors font-semibold">Disease Detection</a>
+      </nav>
+      
+      <div class="flex items-center gap-6">
+        <a href="cart.html" class="relative text-inksoft hover:text-canopy transition-colors" title="View Cart">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span class="absolute -top-1.5 -right-2 bg-amber text-paper text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border border-paper">
+            2
+          </span>
+        </a>
+        
+        <a href="#scanner-section" class="text-sm font-medium border border-canopy text-canopy px-4 py-2 rounded-full hover:bg-canopy hover:text-paper transition-colors hidden sm:block">
+          Try a scan
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section id="scanner-section" class="max-w-4xl mx-auto px-6 sm:px-8 pt-16 pb-12 text-center">
+    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-5">
+      Instant AI Diagnosis
+    </p>
+    <h1 class="font-display font-semibold text-[2.5rem] sm:text-5xl leading-[1.1] tracking-tight text-ink mb-6">
+      See the disease before <br> the leaf shows it.
+    </h1>
+    <p class="text-lg text-inksoft leading-relaxed max-w-2xl mx-auto mb-10">
+      Upload a photo of a plant leaf. The AI will instantly analyze the symptoms, identify the disease, and recommend targeted treatments straight from the Farmers Shop.
+    </p>
+
+    <div id="upload-ui" class="border-2 border-dashed border-canopy/40 rounded-3xl bg-white p-12 hover:bg-paperdeep/30 transition cursor-pointer max-w-2xl mx-auto relative overflow-hidden">
+      <input type="file" id="image-upload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*" onchange="handleUpload(event)">
+      <div class="flex flex-col items-center justify-center gap-4">
+        <div class="w-16 h-16 rounded-full bg-canopy/10 flex items-center justify-center pointer-events-none">
+          <i class="fa-solid fa-camera text-2xl text-canopy"></i>
+        </div>
+        <h3 class="font-display font-medium text-xl text-ink pointer-events-none">Upload a leaf photo</h3>
+        <p class="text-sm text-inksoft pointer-events-none">Supports JPG, PNG (Max 5MB)</p>
+      </div>
+    </div>
+
+    <div id="loading-ui" class="hidden max-w-2xl mx-auto py-20 flex-col items-center justify-center gap-6">
+      <div class="relative w-16 h-16 rounded-full border-4 border-paperdeep border-t-canopy animate-spin"></div>
+      <p class="font-mono text-sm uppercase tracking-wider text-inksoft animate-pulse">Running computer vision models...</p>
+    </div>
+  </section>
+
+  <section id="results-ui" class="hidden border-t border-line bg-paperdeep/60 pb-20 pt-16">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+      <h2 class="font-display font-semibold text-3xl tracking-tight mb-10 text-center">Scan Results</h2>
+      
+      <div class="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-start">
+        
+        <div class="relative rounded-2xl bg-white border border-line p-4 shadow-sm">
+          <div class="relative rounded-xl overflow-hidden bg-ink">
+            <img id="preview-image" src="" alt="Scanned Leaf" class="w-full h-auto max-h-[450px] object-contain opacity-90">
+            <div class="absolute top-[25%] left-[30%] w-[40%] h-[40%] border-2 border-dashed border-amber rounded-lg bg-amber/20 flex items-start p-2 shadow-[0_0_15px_rgba(184,113,15,0.3)]">
+              <span class="bg-amber text-paper font-mono text-[10px] px-2 py-0.5 rounded">Detected Area</span>
+            </div>
+          </div>
+          <div class="mt-4 flex gap-3">
+             <button onclick="resetScanner()" class="flex-1 border border-line text-ink text-sm font-medium py-2 rounded-lg hover:bg-paperdeep transition">Scan Another Image</button>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-6">
+          
+          <div class="rounded-2xl border border-line bg-white p-8 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-mono text-xs uppercase tracking-wider text-rust bg-rust/10 px-3 py-1 rounded-full">High Severity</span>
+              <span class="font-mono text-sm text-inksoft font-medium">94.2% Confidence</span>
+            </div>
+            <h3 class="font-display font-semibold text-3xl text-ink">Powdery Mildew</h3>
+            <p class="mt-4 text-sm text-inksoft leading-relaxed">
+              <strong class="text-ink">Diagnosis:</strong> The AI detected prominent white, powdery fungal spots on the upper leaf surface. This fungus blocks sunlight and leaches nutrients, significantly reducing crop yield if left untreated.
+            </p>
+            <p class="mt-3 text-sm text-inksoft leading-relaxed">
+              <strong class="text-ink">Action required:</strong> Isolate heavily infected leaves. Apply a sulfur or copper-based fungicide immediately. Decrease irrigation frequency to lower ambient humidity.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-canopy/30 bg-canopy/5 p-6 shadow-sm">
+            <h4 class="font-display font-medium text-lg text-ink mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-leaf text-canopy"></i> Recommended Treatment
+            </h4>
+            
+            <article class="rounded-xl border border-line bg-white p-4 flex flex-col sm:flex-row items-start sm:items-center gap-5 hover:border-canopy transition">
+              <img class="w-full sm:w-24 h-32 sm:h-24 object-cover rounded-lg" src="images/copper_Fungicide.jpg" alt="Copper Fungicide">
+              <div class="flex-1 w-full">
+                <h3 class="font-display font-medium text-ink">Copper fungicide spray</h3>
+                <p class="text-xs text-inksoft mt-1">Highly effective against Powdery Mildew and leaf blights.</p>
+                <div class="flex items-center justify-between pt-4 sm:pt-3">
+                  <span class="font-mono text-sm font-medium text-ink">Rs. 850</span>
+                  <button type="button" class="font-mono text-[11px] font-medium text-paper bg-canopy rounded-full px-4 py-2 hover:bg-ink transition shadow-sm" onclick="addToCart(this)">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-line bg-canopy text-paper mt-20">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div>
+        <p class="font-display font-semibold text-xl">AgriGuardian <span class="opacity-80">AI</span></p>
+        <p class="text-sm text-paper/75 mt-2 max-w-sm leading-relaxed">
+          Detects plant disease before it spreads, and waters only when the field actually needs it.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-paper/80 font-mono">
+        <a href="index.html#mission" class="hover:text-paper transition-colors">Our Mission</a>
+        <a href="farmer.html" class="hover:text-paper transition-colors">Farmers Shop</a>
+        <a href="consumer.html" class="hover:text-paper transition-colors">Consumer Shop</a>
+        <a href="diseases.html" class="hover:text-paper transition-colors">Disease Detection</a>
+      </div>
+    </div>
+    <div class="border-t border-paper/15">
+      <p class="max-w-6xl mx-auto px-6 sm:px-8 py-5 text-xs text-paper/60 font-mono">
+        Concept product, built to demonstrate the design — not a live agronomy or e-commerce service.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function handleUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const uploadUI = document.getElementById('upload-ui');
+      const loadingUI = document.getElementById('loading-ui');
+      const resultsUI = document.getElementById('results-ui');
+      const previewImg = document.getElementById('preview-image');
+
+      // 1. Create local URL for preview
+      const imageURL = URL.createObjectURL(file);
+      previewImg.src = imageURL;
+
+      // 2. Hide Upload UI, Show Loading UI
+      uploadUI.classList.add('hidden');
+      loadingUI.classList.remove('hidden');
+      loadingUI.classList.add('flex');
+      resultsUI.classList.add('hidden');
+
+      // 3. Simulate processing time [cite: 8]
+      setTimeout(() => {
+        loadingUI.classList.remove('flex');
+        loadingUI.classList.add('hidden');
+        
+        // 4. Show Results UI [cite: 8]
+        resultsUI.classList.remove('hidden');
+        
+        // 5. Scroll to results
+        resultsUI.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 2500);
+    }
+
+    // Function to reset the scanner for a new image
+    function resetScanner() {
+       document.getElementById('upload-ui').classList.remove('hidden');
+       document.getElementById('results-ui').classList.add('hidden');
+       document.getElementById('image-upload').value = ""; // Clear file input
+       document.getElementById('upload-ui').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Function for Add to Cart button interaction
+    function addToCart(button) {
+       const originalText = button.innerText;
+       button.innerText = "Added ✓";
+       button.classList.remove('bg-canopy');
+       button.classList.add('bg-ink');
+       
+       // Update cart badge number
+       const badge = document.querySelector('.fa-cart-shopping').nextElementSibling;
+       badge.innerText = parseInt(badge.innerText) + 1;
+
+       setTimeout(() => {
+           button.innerText = originalText;
+           button.classList.remove('bg-ink');
+           button.classList.add('bg-canopy');
+       }, 2000);
+    }
+  </script>
+</body>
+</html>

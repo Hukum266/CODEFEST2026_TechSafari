@@ -1,63 +1,74 @@
 html {
-      scroll-behavior: smooth;
-    }
+  scroll-behavior: smooth;
+}
 
-    body {
-      font-feature-settings: "ss01";
-    }
+body {
+  font-feature-settings: "ss01";
+}
 
-    .scan-line {
-      animation: scan 3.6s ease-in-out infinite;
-    }
+/* body .hero{
+      background-image:  url('/images/hero_image.jpeg') ;
+      height: 100vh;
+      box-shadow: 5px 5px 5px;
+    } */
+.hero {
+  background-image: url("/images/hero_image.jpeg");
+  /* box-shadow: 10px 10px 10px 10px; */
+  
+}
 
-    @keyframes scan {
-      0% {
-        transform: translateY(0);
-      }
+.scan-line {
+  animation: scan 3.6s ease-in-out infinite;
+}
 
-      50% {
-        transform: translateY(420px);
-      }
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+  }
 
-      100% {
-        transform: translateY(0);
-      }
-    }
+  50% {
+    transform: translateY(420px);
+  }
 
-    .pulse-dot {
-      animation: pulseDot 2.2s ease-in-out infinite;
-    }
+  100% {
+    transform: translateY(0);
+  }
+}
 
-    @keyframes pulseDot {
+.pulse-dot {
+  animation: pulseDot 2.2s ease-in-out infinite;
+}
 
-      0%,
-      100% {
-        opacity: 1;
-      }
+@keyframes pulseDot {
 
-      50% {
-        opacity: 0.35;
-      }
-    }
+  0%,
+  100% {
+    opacity: 1;
+  }
 
-    @media (prefers-reduced-motion: reduce) {
+  50% {
+    opacity: 0.35;
+  }
+}
 
-      .scan-line,
-      .pulse-dot {
-        animation: none !important;
-      }
+@media (prefers-reduced-motion: reduce) {
 
-      html {
-        scroll-behavior: auto;
-      }
-    }
+  .scan-line,
+  .pulse-dot {
+    animation: none !important;
+  }
 
-    .grain {
-      background-image: radial-gradient(currentColor 0.6px, transparent 0.6px);
-      background-size: 14px 14px;
-    }
+  html {
+    scroll-behavior: auto;
+  }
+}
 
-    :focus-visible {
-      outline: 2px solid #2F5233;
-      outline-offset: 2px;
-    }
+.grain {
+  background-image: radial-gradient(currentColor 0.6px, transparent 0.6px);
+  background-size: 14px 14px;
+}
+
+:focus-visible {
+  outline: 2px solid #2F5233;
+  outline-offset: 2px;
+}

@@ -5,14 +5,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgriGuardian AI — See the disease before the leaf shows it</title>
+  <link rel="shortcut icon" href="images/head.png" type="favicon">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="shortcut icon" href="images/head.png" type="favicon">
-  
+  <script src="js/custom.js"></script>
+  <script>
+
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F3F5EC',
+            paperdeep: '#E7EBDA',
+            ink: '#1C2618',
+            inksoft: '#4A5741',
+            canopy: '#2F5233',
+            canopylight: '#4F7A52',
+            soil: '#8B5E34',
+            irrigation: '#2F6690',
+            amber: '#B8710F',
+            rust: '#A8452F',
+            line: '#D4DAC4',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
 </head>
 
 <body class="bg-paper text-ink font-body antialiased">
@@ -27,20 +56,30 @@
         AgriGuardian <span class="text-canopy">AI</span>
       </a>
       <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-inksoft">
-        <a href="#farmers-shop" class="hover:text-ink transition-colors">Farmers Shop</a>
-        <a href="#consumer-shop" class="hover:text-ink transition-colors">Consumer Shop</a>
-        <a href="#disease-detection" class="hover:text-ink transition-colors">Disease Detection</a>
+        <a href="index.html" class="hover:text-ink transition-colors">Home</a>
+        <a href="farmer.html" class="hover:text-ink transition-colors">Farmers Shop</a>
+        <a href="consumer.html" class="hover:text-ink transition-colors">Consumer Shop</a>
+        <a href="diseases.html" class="hover:text-ink transition-colors">Disease Detection</a>
       </nav>
-      <a href="#disease-detection"
-        class="text-sm font-medium bg-canopy text-paper px-4 py-2 rounded-full hover:bg-ink transition-colors">
-        Try a scan
-      </a>
+      <div class="flex items-center gap-6">
+        <a href="cart.html" class="relative text-canopy transition-colors" title="View Cart">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span id="nav-cart-badge"
+            class="absolute -top-1.5 -right-2 bg-amber text-paper text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border border-paper">
+            0
+          </span>
+        </a>
+        <a href="diseases.html#scanner-section"
+          class="text-sm font-medium border border-canopy text-canopy px-4 py-2 rounded-full hover:bg-canopy hover:text-paper transition-colors hidden sm:block">
+          Try a scan
+        </a>
+      </div>
     </div>
   </header>
 
   <!-- HERO -->
   <section id="top"
-    class="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
+    class=" max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
     <div>
       <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-5">
         Computer vision · Irrigation intelligence · Precision agriculture
@@ -59,7 +98,7 @@
           class="inline-flex items-center gap-2 bg-canopy text-paper font-medium px-6 py-3 rounded-full hover:bg-ink transition-colors">
           See how it works
         </a>
-        <a href="#farmers-shop"
+        <a href="farmer.html"
           class="inline-flex items-center gap-2 border border-line text-ink font-medium px-6 py-3 rounded-full hover:border-canopy transition-colors">
           Visit Farmers Shop
         </a>
@@ -133,9 +172,8 @@
   <!-- OUR MISSION -->
   <section id="mission" class="border-t border-line">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Our mission</p>
       <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-        Every farm deserves an agronomist on call. Every harvest deserves a way to prove itself.
+        Our mission
       </h2>
       <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
         AgriGuardian AI exists to close two gaps at once — the gap between noticing a problem and knowing what to do
@@ -145,7 +183,8 @@
       </p>
 
       <div class="mt-12 grid sm:grid-cols-3 gap-8">
-        <div class="flex items-start gap-3.5">
+        <div
+          class="flex items-start gap-3.5 border border-2 p-2 rounded-xl hover:bg-white cursor-pointer transition-shadow">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F5233" stroke-width="1.6"
             stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5">
             <path d="M12 3C7 4 4 8 5 14c5 1 9-2 10-7 .3-1.4.4-2.8 0-4-1 0-2.2.4-3 1z" />
@@ -156,7 +195,8 @@
             <p class="text-sm text-inksoft mt-1 leading-relaxed">Catch disease while it's still cheap to treat.</p>
           </div>
         </div>
-        <div class="flex items-start gap-3.5">
+        <div
+          class="flex items-start gap-3.5 border border-2 p-2 rounded-xl hover:bg-white cursor-pointer transition-shadow">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F6690" stroke-width="1.6"
             stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5">
             <path d="M12 3s6 6.5 6 11a6 6 0 1 1-12 0c0-4.5 6-11 6-11z" />
@@ -166,7 +206,8 @@
             <p class="text-sm text-inksoft mt-1 leading-relaxed">Irrigate on evidence, not habit or guesswork.</p>
           </div>
         </div>
-        <div class="flex items-start gap-3.5">
+        <div
+          class="flex items-start gap-3.5 border border-2 p-2 rounded-xl hover:bg-white cursor-pointer transition-shadow">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B5E34" stroke-width="1.6"
             stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5">
             <circle cx="8" cy="12" r="5" />
@@ -184,9 +225,8 @@
   <!-- PROBLEM -->
   <section id="problem" class="border-t border-line bg-paperdeep/60">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">The problem</p>
       <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-        Three symptoms can look identical — until the field is already lost.
+        The problem
       </h2>
       <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
         A yellowing leaf could mean disease, a nutrient deficiency, or a watering problem. Farmers rarely get a clean
@@ -219,140 +259,131 @@
 
   <!-- FARMERS SHOP -->
   <section id="farmers-shop" class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Farmers Shop</p>
-    <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-      Everything a diagnosis tells you to do, one tap away.
-    </h2>
-    <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
-      When a scan flags a problem, the treatment recommendation links straight to the product that fixes it —
-      fungicides, sensors, irrigation kits, and seed matched to your crop and growth stage. No separate trip to the
-      agrovet to figure out what to buy.
-    </p>
-
-    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div class="rounded-xl border border-line bg-white p-5 flex flex-col">
-        <span
-          class="font-mono text-[10px] uppercase tracking-wider text-amber bg-amber/10 rounded-full px-2.5 py-1 self-start">Recommended
-          · Block 3</span>
-        <p class="font-display font-medium text-ink mt-3">Copper fungicide spray</p>
-        <p class="text-sm text-inksoft mt-1 flex-1">Treats powdery mildew and common leaf blights.</p>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-mono text-sm text-ink">Rs. 850</span>
-          <span
-            class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5">Add
-            to cart</span>
-        </div>
-      </div>
-      <div class="rounded-xl border border-line bg-white p-5 flex flex-col">
-        <span
-          class="font-mono text-[10px] uppercase tracking-wider text-irrigation bg-irrigation/10 rounded-full px-2.5 py-1 self-start">Pairs
-          with irrigation advisor</span>
-        <p class="font-display font-medium text-ink mt-3">Soil moisture sensor</p>
-        <p class="text-sm text-inksoft mt-1 flex-1">Feeds live readings straight into your watering schedule.</p>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-mono text-sm text-ink">Rs. 2,400</span>
-          <span
-            class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5">Add
-            to cart</span>
-        </div>
-      </div>
-      <div class="rounded-xl border border-line bg-white p-5 flex flex-col">
-        <span
-          class="font-mono text-[10px] uppercase tracking-wider text-inksoft bg-paperdeep rounded-full px-2.5 py-1 self-start">Water-saving
-          kit</span>
-        <p class="font-display font-medium text-ink mt-3">Drip irrigation kit</p>
-        <p class="text-sm text-inksoft mt-1 flex-1">Covers one bigha; expands with add-on tubing.</p>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-mono text-sm text-ink">Rs. 6,200</span>
-          <span
-            class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5">Add
-            to cart</span>
-        </div>
-      </div>
-      <div class="rounded-xl border border-line bg-white p-5 flex flex-col">
-        <span
-          class="font-mono text-[10px] uppercase tracking-wider text-inksoft bg-paperdeep rounded-full px-2.5 py-1 self-start">Organic
-          option</span>
-        <p class="font-display font-medium text-ink mt-3">Neem-based treatment</p>
-        <p class="text-sm text-inksoft mt-1 flex-1">Early-stage pest and mildew control, chemical-free.</p>
-        <div class="flex items-center justify-between mt-4">
-          <span class="font-mono text-sm text-ink">Rs. 620</span>
-          <span
-            class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5">Add
-            to cart</span>
-        </div>
+    <div class="flex justify-between">
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+        Farmers Shop
+      </h2>
+      <div class="gap-3 text-canopy">
+        <a href="/farmer.html"> View all <i class="fa-solid fa-arrow-right-long"></i></a>
       </div>
     </div>
-    <p class="font-mono text-[11px] text-inksoft mt-6">Catalog shown for illustration — pricing and stock are concept
-      data.</p>
+
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <article class="rounded-xl border border-line bg-white p-5 flex flex-col gap-3">
+        <img class="w-[100%]" src="images/copper_Fungicide.jpg" alt="Copper fungicide spray">
+        <h3 class="font-display font-medium text-ink">Copper fungicide spray</h3>
+        <p class="text-sm text-inksoft flex-1">Treats powdery mildew and common leaf blights.</p>
+        <div class="flex items-center justify-between pt-1">
+          <span class="font-mono text-sm text-ink">Rs. 850</span>
+          <button type="button" onclick="addToCart(this, 'Copper fungicide spray', 850, 'images/copper_Fungicide.jpg')"
+            class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5 hover:bg-canopy hover:text-paper transition shadow-sm">
+            Add to cart
+          </button>
+        </div>
+      </article>
+
+      <article class="rounded-xl border border-line bg-white p-5 flex flex-col gap-3">
+        <img class="w-[100%]" src="images/soil_moisture.jpg" alt="Soil moisture sensor">
+        <h3 class="font-display font-medium text-ink">Soil moisture sensor</h3>
+        <p class="text-sm text-inksoft flex-1">Feeds live readings straight into your watering schedule.</p>
+        <div class="flex items-center justify-between pt-1">
+          <span class="font-mono text-sm text-ink">Rs. 2,400</span>
+          <button type="button" onclick="addToCart(this, 'Soil moisture sensor', 2400, 'images/soil_moisture.jpg')"
+            class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5 hover:bg-canopy hover:text-paper transition shadow-sm">
+            Add to cart
+          </button>
+        </div>
+      </article>
+
+      <article class="rounded-xl border border-line bg-white p-5 flex flex-col gap-3">
+        <img class="w-[100%]" src="images/drip_irigation_kit.jpg" alt="Drip irrigation kit">
+        <h3 class="font-display font-medium text-ink">Drip irrigation kit</h3>
+        <p class="text-sm text-inksoft flex-1">Covers one bigha; expands with add-on tubing.</p>
+        <div class="flex items-center justify-between pt-1">
+          <span class="font-mono text-sm text-ink">Rs. 6,200</span>
+          <button type="button" onclick="addToCart(this, 'Drip irrigation kit', 6200, 'images/drip_irigation_kit.jpg')"
+            class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5 hover:bg-canopy hover:text-paper transition shadow-sm">
+            Add to cart
+          </button>
+        </div>
+      </article>
+
+      <article class="rounded-xl border border-line bg-white p-5 flex flex-col gap-3">
+        <img class="w-[100%]" src="images/Neem Oli.jpg" alt="Neem-based treatment">
+        <h3 class="font-display font-medium text-ink">Neem-based treatment</h3>
+        <p class="text-sm text-inksoft flex-1">Early-stage pest and mildew control, chemical-free.</p>
+        <div class="flex items-center justify-between pt-1">
+          <span class="font-mono text-sm text-ink">Rs. 620</span>
+          <button type="button" onclick="addToCart(this, 'Neem-based treatment', 620, 'images/Neem Oli.jpg')"
+            class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5 hover:bg-canopy hover:text-paper transition shadow-sm">
+            Add to cart
+          </button>
+        </div>
+      </article>
+    </div>
   </section>
 
-  <!-- CONSUMER SHOP -->
+  <!--Consumers Shop-->
   <section id="consumer-shop" class="border-t border-line bg-paperdeep/60">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Consumer Shop</p>
-      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-        Produce you can trace back to the field it grew in.
-      </h2>
-      <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
-        Every farm on AgriGuardian carries a live Farm Health Score. Shop directly from verified farms, see the score
-        and treatment history behind what's in your basket, and pay the farmer without a middle layer in between.
-      </p>
-
-      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div class="rounded-xl border border-line bg-white p-5">
-          <span
-            class="inline-flex items-center gap-1.5 font-mono text-[11px] text-canopy bg-canopy/10 rounded-full px-2.5 py-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-canopy"></span> Health score 91
-          </span>
-          <p class="font-display font-medium text-ink mt-3">Heirloom tomatoes</p>
-          <p class="font-mono text-[11px] text-inksoft mt-1">Bhandari Farm · 0 fungicide treatments this season</p>
-          <div class="flex items-center justify-between mt-4">
-            <span class="font-mono text-sm text-ink">Rs. 120/kg</span>
-            <span
-              class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5">Add
-              to cart</span>
-          </div>
-        </div>
-        <div class="rounded-xl border border-line bg-white p-5">
-          <span
-            class="inline-flex items-center gap-1.5 font-mono text-[11px] text-canopy bg-canopy/10 rounded-full px-2.5 py-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-canopy"></span> Health score 88
-          </span>
-          <p class="font-display font-medium text-ink mt-3">Organic spinach</p>
-          <p class="font-mono text-[11px] text-inksoft mt-1">Greenfield Farm · Harvested this week</p>
-          <div class="flex items-center justify-between mt-4">
-            <span class="font-mono text-sm text-ink">Rs. 60/bundle</span>
-            <span
-              class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5">Add
-              to cart</span>
-          </div>
-        </div>
-        <div class="rounded-xl border border-line bg-white p-5">
-          <span
-            class="inline-flex items-center gap-1.5 font-mono text-[11px] text-canopy bg-canopy/10 rounded-full px-2.5 py-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-canopy"></span> Health score 95
-          </span>
-          <p class="font-display font-medium text-ink mt-3">Sweet corn</p>
-          <p class="font-mono text-[11px] text-inksoft mt-1">Rai Family Farm · Irrigation-optimized</p>
-          <div class="flex items-center justify-between mt-4">
-            <span class="font-mono text-sm text-ink">Rs. 90/kg</span>
-            <span
-              class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5">Add
-              to cart</span>
-          </div>
+      <div class="flex justify-between">
+        <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+          Consumers Shop
+        </h2>
+        <div class="gap-3 text-canopy">
+          <a href="/consumer.html"> View all <i class="fa-solid fa-arrow-right-long"></i></a>
         </div>
       </div>
-      <p class="font-mono text-[11px] text-inksoft mt-6">Catalog shown for illustration — pricing and stock are concept
-        data.</p>
+
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <article class="rounded-xl border border-line bg-white p-5 flex flex-col gap-3">
+          <img class="w-[100%]" src="images/tomatoes1.jpg" alt="Tomatoes">
+          <h3 class="font-display font-medium text-ink">Tomatoes</h3>
+          <p class="text-sm text-inksoft flex-1">Bhandari Farm . 0 fungicide treatmens this season</p>
+          <div class="flex items-center justify-between pt-1">
+            <span class="font-mono text-sm text-ink">Rs. 120/kg</span>
+            <button type="button" onclick="addToCart(this, 'Tomatoes', 120, 'images/tomatoes1.jpg')"
+              class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5 hover:bg-canopy hover:text-paper transition shadow-sm">
+              Add to cart
+            </button>
+          </div>
+        </article>
+
+        <article class="rounded-xl border border-line bg-white p-5 flex flex-col gap-3">
+          <img class="w-[100%]" src="images/spinach1.jpg" alt="Spinach">
+          <h3 class="font-display font-medium text-ink">Spinach</h3>
+          <p class="text-sm text-inksoft flex-1">Greenfield Farm . Harvested this week</p>
+          <div class="flex items-center justify-between pt-1">
+            <span class="font-mono text-sm text-ink">Rs. 60/bundle</span>
+            <button type="button" onclick="addToCart(this, 'Spinach', 60, 'images/spinach1.jpg')"
+              class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5 hover:bg-canopy hover:text-paper transition shadow-sm">
+              Add to cart
+            </button>
+          </div>
+        </article>
+
+        <article class="rounded-xl border border-line bg-white p-5 flex flex-col gap-3">
+          <img class="w-[100%]" src="images/sweet_corn.jpg" alt="Sweet Corn">
+          <h3 class="font-display font-medium text-ink">Sweet Corn</h3>
+          <p class="text-sm text-inksoft flex-1">Rai Family Farm . Irrigation-optimized </p>
+          <div class="flex items-center justify-between pt-1">
+            <span class="font-mono text-sm text-ink">Rs. 90/kg</span>
+            <button type="button" onclick="addToCart(this, 'Sweet Corn', 90, 'images/sweet_corn.jpg')"
+              class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5 hover:bg-canopy hover:text-paper transition shadow-sm">
+              Add to cart
+            </button>
+          </div>
+        </article>
+
+      </div>
     </div>
   </section>
 
   <!-- DISEASE DETECTION -->
   <section id="disease-detection" class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Disease Detection</p>
     <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-      Two engines. One decision loop.
+      Disease Detection
     </h2>
 
     <div class="mt-12 grid lg:grid-cols-2 gap-6">
@@ -427,8 +458,7 @@
 
     <!-- Integrated intelligence -->
     <div class="mt-8 rounded-2xl border border-line bg-canopy text-paper p-8 sm:p-10">
-      <p class="font-mono text-xs tracking-[0.18em] text-paper/70 uppercase mb-4">Integrated intelligence</p>
-      <h3 class="font-display font-semibold text-2xl sm:text-3xl max-w-xl">The two engines talk to each other.</h3>
+      <h3 class="font-display font-semibold text-2xl sm:text-3xl max-w-xl">Integrated intelligence</h3>
       <p class="mt-4 text-paper/85 max-w-2xl leading-relaxed text-sm sm:text-base">
         A detection doesn't just sit in a report — it changes what the irrigation advisor recommends next. If the
         disease engine flags powdery mildew, which thrives in humid conditions, the irrigation advisor automatically
@@ -448,9 +478,8 @@
   <!-- DASHBOARD -->
   <section id="dashboard" class="border-t border-line bg-paperdeep/60">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Farm dashboard</p>
       <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-        One screen, the whole field.
+        Farm dashboard
       </h2>
       <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
         Everything the two engines learn gets rolled up into five numbers a farmer can check in ten seconds.
@@ -489,9 +518,8 @@
   <!-- PREDICTIVE ANALYTICS -->
   <section class="max-w-6xl mx-auto px-6 sm:px-8 py-20 grid lg:grid-cols-[1fr_1.1fr] gap-12 items-center">
     <div>
-      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Predictive analytics</p>
       <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight">
-        Acting before the symptoms show.
+        Predictive analytics
       </h2>
       <p class="mt-5 text-inksoft leading-relaxed">
         Weather and environmental data — humidity trends, leaf-wetness duration, temperature swings — often signal an
@@ -522,9 +550,8 @@
   <!-- ADDITIONAL FEATURES -->
   <section class="border-t border-line bg-paperdeep/60">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Beyond the core</p>
       <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-        Built for real fields, not just demo photos.
+        Beyond the core
       </h2>
 
       <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -602,9 +629,8 @@
 
   <!-- WHY CHOOSE AGRIGUARDIAN -->
   <section id="why-choose" class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Why choose AgriGuardian</p>
     <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-      Not just another disease classifier.
+      Why choose AgriGuardian
     </h2>
     <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
       Most tools stop at a label. AgriGuardian AI connects vision, weather, irrigation, and the shop into one loop — so
@@ -636,9 +662,8 @@
   <!-- HOW IT WORKS -->
   <section id="how-it-works" class="border-t border-line bg-paperdeep/60">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">How it works</p>
       <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-        From leaf photo to water saved, in six steps.
+        How it works
       </h2>
 
       <ol class="mt-12 relative border-l border-line ml-3">
@@ -685,18 +710,12 @@
 
   <!-- TESTIMONIALS -->
   <section id="testimonials" class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">What our users say</p>
     <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
-      From the field, and from the kitchen.
+      What our users say
     </h2>
-
     <div class="mt-12 grid sm:grid-cols-3 gap-6">
       <div class="rounded-2xl border border-line bg-white p-6 flex flex-col">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-canopy/40 mb-3">
-          <path
-            d="M7 8c-2 0-3.5 1.6-3.5 4S5 16 7 16c.4 2.4-.8 4-3 4.6M17 8c-2 0-3.5 1.6-3.5 4s1.5 4 3.5 4c.4 2.4-.8 4-3 4.6"
-            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-        </svg>
+        <i class="fa-solid fa-quote-left text-lg"></i>
         <p class="text-sm text-ink leading-relaxed flex-1">I used to lose half a bed to blight before I even noticed it.
           Now I get a warning before the leaves turn.</p>
         <div class="mt-5 flex items-center gap-3">
@@ -710,11 +729,7 @@
         </div>
       </div>
       <div class="rounded-2xl border border-line bg-white p-6 flex flex-col">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-canopy/40 mb-3">
-          <path
-            d="M7 8c-2 0-3.5 1.6-3.5 4S5 16 7 16c.4 2.4-.8 4-3 4.6M17 8c-2 0-3.5 1.6-3.5 4s1.5 4 3.5 4c.4 2.4-.8 4-3 4.6"
-            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-        </svg>
+        <i class="fa-solid fa-quote-left text-lg"></i>
         <p class="text-sm text-ink leading-relaxed flex-1">The irrigation advisor cut our water bill and our mildew
           problem in the same season.</p>
         <div class="mt-5 flex items-center gap-3">
@@ -728,11 +743,7 @@
         </div>
       </div>
       <div class="rounded-2xl border border-line bg-white p-6 flex flex-col">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-canopy/40 mb-3">
-          <path
-            d="M7 8c-2 0-3.5 1.6-3.5 4S5 16 7 16c.4 2.4-.8 4-3 4.6M17 8c-2 0-3.5 1.6-3.5 4s1.5 4 3.5 4c.4 2.4-.8 4-3 4.6"
-            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-        </svg>
+        <i class="fa-solid fa-quote-left text-lg"></i>
         <p class="text-sm text-ink leading-relaxed flex-1">I like knowing which farm my spinach came from, and that it
           wasn't overtreated.</p>
         <div class="mt-5 flex items-center gap-3">
@@ -751,9 +762,8 @@
   <!-- TECH STACK -->
   <section id="stack" class="border-t border-line bg-paperdeep/60">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
-      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Under the hood</p>
       <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight">
-        The stack.
+        Under the hood
       </h2>
 
       <div class="mt-10 grid sm:grid-cols-2 gap-x-10 gap-y-8">
@@ -803,8 +813,9 @@
   <footer class="border-t border-line bg-canopy text-paper">
     <div
       class="max-w-6xl mx-auto px-6 sm:px-8 py-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-      <div>
-        <p class="font-display font-semibold text-xl">AgriGuardian <span class="opacity-80">AI</span></p>
+      <div class="text-center flex-col justify-center">
+        <a href="index.html"><img class="h-[150px]" src="images/logo.png" alt="logo"></a>
+
         <p class="text-sm text-paper/75 mt-2 max-w-sm leading-relaxed">
           Detects plant disease before it spreads, and waters only when the field actually needs it.
         </p>
@@ -823,7 +834,7 @@
       </p>
     </div>
   </footer>
-<script src="js/custom.js"></script>
+
 </body>
 
 </html>
