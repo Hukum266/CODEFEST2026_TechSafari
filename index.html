@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriGuardian AI — See the disease before the leaf shows it</title>
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-paper text-ink font-body antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2.5 font-display font-semibold text-lg tracking-tight">
+       <img class="w-[50px]" src="images/head.png" alt="logo">
+        AgriGuardian <span class="text-canopy">AI</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-inksoft">
+        <a href="#problem" class="hover:text-ink transition-colors">Problem</a>
+        <a href="#solution" class="hover:text-ink transition-colors">Solution</a>
+        <a href="#dashboard" class="hover:text-ink transition-colors">Dashboard</a>
+        <a href="#stack" class="hover:text-ink transition-colors">Tech stack</a>
+        <a href="#demo" class="hover:text-ink transition-colors">Demo flow</a>
+      </nav>
+      <a href="#demo" class="text-sm font-medium bg-canopy text-paper px-4 py-2  rounded-full hover:bg-ink transition-colors">
+        Walk through the demo
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
+    <div>
+      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-5">
+        Computer vision · Irrigation intelligence · Precision agriculture
+      </p>
+      <h1 class="font-display font-semibold text-[2.5rem] sm:text-6xl leading-[1.05] tracking-tight text-ink">
+        The leaf shows it first.
+        <span class="block text-canopy">Now you see it first too.</span>
+      </h1>
+      <p class="mt-6 text-lg text-inksoft leading-relaxed max-w-xl">
+        AgriGuardian AI reads a photo of a leaf the way an agronomist would — naming the disease, scoring how confident it is, and marking exactly where the damage sits. Then it feeds that finding straight into your irrigation schedule, so watering never makes an outbreak worse.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#demo" class="inline-flex items-center gap-2 bg-canopy text-paper font-medium px-6 py-3 rounded-full hover:bg-ink transition-colors">
+          See how it works
+        </a>
+        <a href="#stack" class="inline-flex items-center gap-2 border border-line text-ink font-medium px-6 py-3 rounded-full hover:border-canopy transition-colors">
+          View the tech stack
+        </a>
+      </div>
+      <div class="mt-10 flex items-center gap-6 font-mono text-xs text-inksoft">
+        <div><span class="text-ink font-medium">2</span> core engines</div>
+        <div class="w-px h-4 bg-line"></div>
+        <div><span class="text-ink font-medium">6</span> environmental inputs</div>
+        <div class="w-px h-4 bg-line"></div>
+        <div><span class="text-ink font-medium">1</span> shared decision loop</div>
+      </div>
+    </div>
+
+    <!-- Signature visual: leaf scan -->
+    <div class="relative mx-auto w-full max-w-sm">
+      <div class="relative rounded-[28px] bg-paperdeep border border-line p-6">
+        <div class="flex items-center justify-between mb-4">
+          <span class="font-mono text-[11px] uppercase tracking-wider text-inksoft">Scan · Block 3, Row 12</span>
+          <span class="flex items-center gap-1.5 font-mono text-[11px] text-canopy">
+            <span class="w-1.5 h-1.5 rounded-full bg-canopy pulse-dot"></span> live
+          </span>
+        </div>
+
+        <svg viewBox="0 0 400 480" class="w-full h-auto">
+          <defs>
+            <clipPath id="leafClip">
+              <path d="M200,36 C316,78 356,214 200,452 C44,214 84,78 200,36 Z"/>
+            </clipPath>
+            <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#EAF2DE" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#EAF2DE" stop-opacity="0.65"/>
+              <stop offset="100%" stop-color="#EAF2DE" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <path d="M200,36 C316,78 356,214 200,452 C44,214 84,78 200,36 Z" fill="#3A5A40" stroke="#24371F" stroke-width="2"/>
+
+          <g clip-path="url(#leafClip)" stroke="#5C8760" stroke-width="1.4" fill="none" opacity="0.55">
+            <path d="M200,60 C196,180 202,320 200,430"/>
+            <path d="M200,120 C240,140 268,150 296,150"/>
+            <path d="M200,120 C160,140 132,150 104,150"/>
+            <path d="M200,190 C246,212 276,224 306,224"/>
+            <path d="M200,190 C154,212 124,224 94,224"/>
+            <path d="M200,270 C240,292 264,300 288,304"/>
+            <path d="M200,270 C160,292 136,300 112,304"/>
+            <path d="M200,350 C230,368 248,376 264,382"/>
+            <path d="M200,350 C170,368 152,376 136,382"/>
+            <rect class="scan-line" x="0" y="-140" width="400" height="140" fill="url(#scanGrad)"/>
+          </g>
+
+          <ellipse cx="252" cy="196" rx="30" ry="22" fill="none" stroke="#B8710F" stroke-width="1" opacity="0.4"/>
+          <ellipse cx="252" cy="196" rx="18" ry="13" fill="#B8710F" opacity="0.85"/>
+          <rect x="212" y="160" width="88" height="70" rx="4" fill="none" stroke="#B8710F" stroke-width="2" stroke-dasharray="6 5"/>
+        </svg>
+
+        <div class="absolute right-8 bottom-10 bg-paper border border-line rounded-xl px-4 py-3 shadow-sm max-w-[190px]">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-amber mb-1">Detected · moderate</p>
+          <p class="font-display font-semibold text-sm text-ink leading-tight">Powdery mildew</p>
+          <p class="font-mono text-[11px] text-inksoft mt-1">94.2% confidence</p>
+        </div>
+      </div>
+      <p class="text-center font-mono text-[11px] text-inksoft mt-4">
+        Affected area outlined automatically — no manual cropping needed.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="border-t border-line bg-paperdeep/60">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
+      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">The problem</p>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+        Three symptoms can look identical — until the field is already lost.
+      </h2>
+      <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
+        A yellowing leaf could mean disease, a nutrient deficiency, or a watering problem. Farmers rarely get a clean signal, and every day spent guessing is a day the problem gets worse. Watering incorrectly on top of that — too much, too little, or at the wrong time — compounds the damage and drags yield down further.
+      </p>
+
+      <div class="mt-12 grid sm:grid-cols-3 gap-6">
+        <div class="border-t-2 border-rust pt-5">
+          <p class="font-mono text-xs text-rust mb-2">01</p>
+          <p class="font-display font-medium text-ink">Disease or deficiency?</p>
+          <p class="mt-2 text-sm text-inksoft leading-relaxed">The same discoloration can point to a fungus or a missing nutrient — and the treatments don't overlap.</p>
+        </div>
+        <div class="border-t-2 border-irrigation pt-5">
+          <p class="font-mono text-xs text-irrigation mb-2">02</p>
+          <p class="font-display font-medium text-ink">Too much or too little water?</p>
+          <p class="mt-2 text-sm text-inksoft leading-relaxed">Irrigation decisions are often made on habit, not on soil moisture, forecast, or growth stage.</p>
+        </div>
+        <div class="border-t-2 border-amber pt-5">
+          <p class="font-mono text-xs text-amber mb-2">03</p>
+          <p class="font-display font-medium text-ink">By the time it's visible, it's spreading.</p>
+          <p class="mt-2 text-sm text-inksoft leading-relaxed">Most outbreaks are already established in the surrounding crop before the first symptom is caught.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section id="solution" class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
+    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">The solution</p>
+    <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+      Two engines. One decision loop.
+    </h2>
+
+    <div class="mt-12 grid lg:grid-cols-2 gap-6">
+      <!-- Disease detection card -->
+      <div class="rounded-2xl border border-line bg-white/60 p-8">
+        <div class="w-10 h-10 rounded-full bg-canopy/10 flex items-center justify-center mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F5233" stroke-width="1.6" stroke-linecap="round">
+            <circle cx="11" cy="11" r="6"/>
+            <path d="M20 20l-4.3-4.3"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-xl text-ink">AI Disease Detection</h3>
+        <p class="mt-2 text-sm text-inksoft leading-relaxed">
+          Upload a photo of any leaf. The model returns a full read-out, not just a label.
+        </p>
+        <ul class="mt-5 space-y-3">
+          <li class="flex items-start gap-3 text-sm">
+            <span class="font-mono text-xs text-canopy mt-0.5">→</span>
+            <span><span class="font-medium text-ink">Disease identified</span> — species-level where possible</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="font-mono text-xs text-canopy mt-0.5">→</span>
+            <span><span class="font-medium text-ink">Confidence score</span> — how sure the model is</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="font-mono text-xs text-canopy mt-0.5">→</span>
+            <span><span class="font-medium text-ink">Severity</span> — early, moderate, or advanced</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="font-mono text-xs text-canopy mt-0.5">→</span>
+            <span><span class="font-medium text-ink">Highlighted regions</span> — the exact affected area, outlined</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="font-mono text-xs text-canopy mt-0.5">→</span>
+            <span><span class="font-medium text-ink">Plain-language explanation</span> — why the model thinks so</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="font-mono text-xs text-canopy mt-0.5">→</span>
+            <span><span class="font-medium text-ink">Treatment recommendation</span> — what to do next</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Irrigation advisor card -->
+      <div class="rounded-2xl border border-line bg-white/60 p-8">
+        <div class="w-10 h-10 rounded-full bg-irrigation/10 flex items-center justify-center mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F6690" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3s6 6.5 6 11a6 6 0 1 1-12 0c0-4.5 6-11 6-11z"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-xl text-ink">Smart Irrigation Advisor</h3>
+        <p class="mt-2 text-sm text-inksoft leading-relaxed">
+          Combines six live inputs to answer one question: water now, or wait?
+        </p>
+        <div class="mt-5 grid grid-cols-2 gap-2.5">
+          <div class="font-mono text-xs bg-paperdeep rounded-lg px-3 py-2.5 text-inksoft">Weather forecast</div>
+          <div class="font-mono text-xs bg-paperdeep rounded-lg px-3 py-2.5 text-inksoft">Soil moisture</div>
+          <div class="font-mono text-xs bg-paperdeep rounded-lg px-3 py-2.5 text-inksoft">Humidity</div>
+          <div class="font-mono text-xs bg-paperdeep rounded-lg px-3 py-2.5 text-inksoft">Temperature</div>
+          <div class="font-mono text-xs bg-paperdeep rounded-lg px-3 py-2.5 text-inksoft">Crop type</div>
+          <div class="font-mono text-xs bg-paperdeep rounded-lg px-3 py-2.5 text-inksoft">Growth stage</div>
+        </div>
+        <div class="mt-5 rounded-lg border border-irrigation/30 bg-irrigation/5 px-4 py-3">
+          <p class="text-sm text-ink"><span class="font-medium">Output:</span> when to irrigate and how much — tuned to save water without under-watering the crop.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integrated intelligence -->
+    <div class="mt-8 rounded-2xl border border-line bg-canopy text-paper p-8 sm:p-10">
+      <p class="font-mono text-xs tracking-[0.18em] text-paper/70 uppercase mb-4">Integrated intelligence</p>
+      <h3 class="font-display font-semibold text-2xl sm:text-3xl max-w-xl">The two engines talk to each other.</h3>
+      <p class="mt-4 text-paper/85 max-w-2xl leading-relaxed text-sm sm:text-base">
+        A detection doesn't just sit in a report — it changes what the irrigation advisor recommends next. If the disease engine flags powdery mildew, which thrives in humid conditions, the irrigation advisor automatically reduces watering frequency to bring humidity down and slow the spread.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-3 font-mono text-xs">
+        <div class="bg-paper/10 border border-paper/25 rounded-full px-4 py-2 text-paper">Powdery mildew detected</div>
+        <span class="text-paper/50 hidden sm:block">→</span>
+        <div class="bg-paper/10 border border-paper/25 rounded-full px-4 py-2 text-paper">Irrigation frequency lowered</div>
+        <span class="text-paper/50 hidden sm:block">→</span>
+        <div class="bg-paper text-canopy rounded-full px-4 py-2 font-medium">Humidity drops, spread risk falls</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="border-t border-line bg-paperdeep/60">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
+      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Farm dashboard</p>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+        One screen, the whole field.
+      </h2>
+      <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
+        Everything the two engines learn gets rolled up into five numbers a farmer can check in ten seconds.
+      </p>
+
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="rounded-xl border border-line bg-white p-5">
+          <p class="font-mono text-[11px] uppercase tracking-wider text-inksoft">Farm health score</p>
+          <p class="font-display font-semibold text-3xl text-canopy mt-2">82<span class="text-base text-inksoft font-body">/100</span></p>
+          <p class="font-mono text-[11px] text-canopy mt-1">▲ 3 vs last week</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-5">
+          <p class="font-mono text-[11px] uppercase tracking-wider text-inksoft">Disease risk</p>
+          <p class="font-display font-semibold text-2xl text-amber mt-2">Moderate</p>
+          <p class="font-mono text-[11px] text-inksoft mt-1">Powdery mildew · Block 3</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-5">
+          <p class="font-mono text-[11px] uppercase tracking-wider text-inksoft">Water usage</p>
+          <p class="font-display font-semibold text-3xl text-irrigation mt-2">−18%</p>
+          <p class="font-mono text-[11px] text-inksoft mt-1">vs. baseline this week</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-5">
+          <p class="font-mono text-[11px] uppercase tracking-wider text-inksoft">Weather alert</p>
+          <p class="font-display font-semibold text-xl text-ink mt-2">Rain · 36h</p>
+          <p class="font-mono text-[11px] text-inksoft mt-1">Irrigation paused Blocks 1–2</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-5">
+          <p class="font-mono text-[11px] uppercase tracking-wider text-inksoft">Recommended action</p>
+          <p class="text-sm text-ink mt-2 leading-snug">Hold irrigation on Block 3 for 2 days; treat mildew now.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREDICTIVE ANALYTICS -->
+  <section class="max-w-6xl mx-auto px-6 sm:px-8 py-20 grid lg:grid-cols-[1fr_1.1fr] gap-12 items-center">
+    <div>
+      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Predictive analytics</p>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight">
+        Acting before the symptoms show.
+      </h2>
+      <p class="mt-5 text-inksoft leading-relaxed">
+        Weather and environmental data — humidity trends, leaf-wetness duration, temperature swings — often signal an outbreak days before it's visible on a leaf. AgriGuardian AI tracks that climb and flags the risk early, so treatment can start before the disease has a foothold.
+      </p>
+    </div>
+    <div class="rounded-2xl border border-line bg-white p-6 sm:p-8">
+      <div class="flex items-center justify-between font-mono text-[11px] text-inksoft mb-4">
+        <span>Environmental risk index</span>
+        <span>14-day window</span>
+      </div>
+      <svg viewBox="0 0 420 160" class="w-full h-auto">
+        <rect x="270" y="0" width="150" height="140" fill="#B8710F" opacity="0.07"/>
+        <line x1="270" y1="0" x2="270" y2="140" stroke="#B8710F" stroke-width="1" stroke-dasharray="3 4"/>
+        <text x="278" y="16" class="font-mono" font-size="10" fill="#B8710F">symptoms typically appear</text>
+        <polyline points="10,120 60,116 110,104 160,96 210,74 260,50 310,34 360,22 410,16"
+          fill="none" stroke="#2F6690" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="210" cy="74" r="4" fill="#2F6690"/>
+        <text x="200" y="98" class="font-mono" font-size="10" fill="#2F6690">today</text>
+        <line x1="0" y1="140" x2="420" y2="140" stroke="#D4DAC4" stroke-width="1"/>
+      </svg>
+      <p class="font-mono text-[11px] text-inksoft mt-3">Risk climbs well ahead of visible onset — the window where preventive treatment is cheapest.</p>
+    </div>
+  </section>
+
+  <!-- ADDITIONAL FEATURES -->
+  <section class="border-t border-line bg-paperdeep/60">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
+      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Beyond the core</p>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+        Built for real fields, not just demo photos.
+      </h2>
+
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="rounded-xl border border-line bg-white p-6">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F5233" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+            <circle cx="7" cy="17" r="2.4"/><path d="M9.7 14.7 18 6.4l2 2-8.3 8.3"/><path d="M13 3l1.5 1.5"/><path d="M17.5 7.5 19 9"/>
+          </svg>
+          <p class="font-display font-medium text-ink">Satellite &amp; drone view</p>
+          <p class="text-sm text-inksoft mt-1.5 leading-relaxed">Field-level visualization layered over the same risk data. <span class="font-mono text-[11px] text-inksoft">(concept)</span></p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-6">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F5233" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+            <rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0012 0"/><path d="M12 17v4"/><path d="M9 21h6"/>
+          </svg>
+          <p class="font-display font-medium text-ink">Multilingual voice assistant</p>
+          <p class="text-sm text-inksoft mt-1.5 leading-relaxed">Ask questions and get recommendations spoken back in the farmer's own language.</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-6">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F5233" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+            <path d="M4 4l16 16"/><path d="M8.5 8.5a10 10 0 0111 0"/><path d="M5 12a10 10 0 013-2.6"/><circle cx="12" cy="18" r="1.2" fill="#2F5233" stroke="none"/>
+          </svg>
+          <p class="font-display font-medium text-ink">Offline mode</p>
+          <p class="text-sm text-inksoft mt-1.5 leading-relaxed">Detection still runs without signal; results sync once the connection returns.</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-6">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F5233" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+          <p class="font-display font-medium text-ink">Explainable AI</p>
+          <p class="text-sm text-inksoft mt-1.5 leading-relaxed">Every diagnosis comes with the reasoning behind it, not just a label.</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-6">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F5233" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+            <circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5"/><path d="M11 20c0-3 2.5-5 5-5s5 2 5 5"/>
+          </svg>
+          <p class="font-display font-medium text-ink">Community disease alerts</p>
+          <p class="text-sm text-inksoft mt-1.5 leading-relaxed">When nearby farms report an outbreak, neighboring fields get an early warning.</p>
+        </div>
+        <div class="rounded-xl border border-line bg-white p-6">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F5233" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+            <path d="M12 3s6 6.5 6 11a6 6 0 1 1-12 0c0-4.5 6-11 6-11z"/><path d="M9 15l2 2 4-4"/>
+          </svg>
+          <p class="font-display font-medium text-ink">Water-saving analytics</p>
+          <p class="text-sm text-inksoft mt-1.5 leading-relaxed">Track litres saved over time as irrigation gets tuned to real conditions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section id="stack" class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
+    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Under the hood</p>
+    <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+      The stack.
+    </h2>
+
+    <div class="mt-10 grid sm:grid-cols-2 gap-x-10 gap-y-8">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-inksoft mb-3">Frontend</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">React</span>
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">Flutter</span>
+        </div>
+      </div>
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-inksoft mb-3">Backend</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">FastAPI</span>
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">Node.js</span>
+        </div>
+      </div>
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-inksoft mb-3">AI / computer vision</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">YOLOv8</span>
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">EfficientNet</span>
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">TensorFlow</span>
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">PyTorch</span>
+        </div>
+      </div>
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-inksoft mb-3">Data &amp; auth</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">PostgreSQL</span>
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">Supabase</span>
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">Firebase Auth</span>
+        </div>
+      </div>
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-inksoft mb-3">Weather &amp; deployment</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">Weather API</span>
+          <span class="font-mono text-xs border border-line rounded-full px-3 py-1.5">Docker</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO FLOW -->
+  <section id="demo" class="border-t border-line bg-paperdeep/60">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
+      <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Demo flow</p>
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+        From leaf photo to water saved, in six steps.
+      </h2>
+
+      <ol class="mt-12 relative border-l border-line ml-3">
+        <li class="pl-8 relative pb-10">
+          <span class="absolute -left-[7px] top-1 w-3.5 h-3.5 rounded-full bg-canopy"></span>
+          <p class="font-mono text-xs text-canopy mb-1">Step 01</p>
+          <p class="font-display font-medium text-ink">Farmer uploads a leaf photo</p>
+          <p class="text-sm text-inksoft mt-1">A single image, taken on a phone in the field.</p>
+        </li>
+        <li class="pl-8 relative pb-10">
+          <span class="absolute -left-[7px] top-1 w-3.5 h-3.5 rounded-full bg-canopy"></span>
+          <p class="font-mono text-xs text-canopy mb-1">Step 02</p>
+          <p class="font-display font-medium text-ink">AI detects the disease</p>
+          <p class="text-sm text-inksoft mt-1">Species, confidence score, and the affected region are identified.</p>
+        </li>
+        <li class="pl-8 relative pb-10">
+          <span class="absolute -left-[7px] top-1 w-3.5 h-3.5 rounded-full bg-canopy"></span>
+          <p class="font-mono text-xs text-canopy mb-1">Step 03</p>
+          <p class="font-display font-medium text-ink">Dashboard shows severity and treatment</p>
+          <p class="text-sm text-inksoft mt-1">A clear recommendation, no field manual required.</p>
+        </li>
+        <li class="pl-8 relative pb-10">
+          <span class="absolute -left-[7px] top-1 w-3.5 h-3.5 rounded-full bg-irrigation"></span>
+          <p class="font-mono text-xs text-irrigation mb-1">Step 04</p>
+          <p class="font-display font-medium text-ink">Weather forecast is checked</p>
+          <p class="text-sm text-inksoft mt-1">Upcoming rain, humidity, and temperature are pulled in automatically.</p>
+        </li>
+        <li class="pl-8 relative pb-10">
+          <span class="absolute -left-[7px] top-1 w-3.5 h-3.5 rounded-full bg-irrigation"></span>
+          <p class="font-mono text-xs text-irrigation mb-1">Step 05</p>
+          <p class="font-display font-medium text-ink">Irrigation schedule is optimized</p>
+          <p class="text-sm text-inksoft mt-1">Adjusted for the diagnosis, the forecast, and the crop's growth stage.</p>
+        </li>
+        <li class="pl-8 relative">
+          <span class="absolute -left-[7px] top-1 w-3.5 h-3.5 rounded-full bg-amber"></span>
+          <p class="font-mono text-xs text-amber mb-1">Step 06</p>
+          <p class="font-display font-medium text-ink">Water savings and reduced risk are displayed</p>
+          <p class="text-sm text-inksoft mt-1">The outcome of the whole loop, in numbers the farmer can trust.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- WHY IT STANDS OUT -->
+  <section class="max-w-6xl mx-auto px-6 sm:px-8 py-20">
+    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-4">Why it's different</p>
+    <h2 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight max-w-2xl">
+      Not just another disease classifier.
+    </h2>
+    <p class="mt-5 text-inksoft max-w-2xl leading-relaxed">
+      Most tools stop at a label. AgriGuardian AI connects vision, weather, and irrigation into one loop — so a diagnosis actually changes what happens next in the field.
+    </p>
+
+    <div class="mt-10 grid sm:grid-cols-2 gap-4">
+      <div class="flex items-start gap-3 rounded-xl border border-line bg-white p-5">
+        <span class="font-mono text-canopy text-sm mt-0.5">✓</span>
+        <p class="text-sm text-ink">Detection and irrigation share one decision loop, not two separate apps.</p>
+      </div>
+      <div class="flex items-start gap-3 rounded-xl border border-line bg-white p-5">
+        <span class="font-mono text-canopy text-sm mt-0.5">✓</span>
+        <p class="text-sm text-ink">Predicts outbreaks from environmental trends, before symptoms appear.</p>
+      </div>
+      <div class="flex items-start gap-3 rounded-xl border border-line bg-white p-5">
+        <span class="font-mono text-canopy text-sm mt-0.5">✓</span>
+        <p class="text-sm text-ink">Explains every diagnosis instead of returning a black-box label.</p>
+      </div>
+      <div class="flex items-start gap-3 rounded-xl border border-line bg-white p-5">
+        <span class="font-mono text-canopy text-sm mt-0.5">✓</span>
+        <p class="text-sm text-ink">Works offline and in multiple languages, for real field conditions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line bg-canopy text-paper">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div>
+        <p class="font-display font-semibold text-xl">AgriGuardian <span class="opacity-80">AI</span></p>
+        <p class="text-sm text-paper/75 mt-2 max-w-sm leading-relaxed">
+          Detects plant disease before it spreads, and waters only when the field actually needs it.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-paper/80 font-mono">
+        <a href="#problem" class="hover:text-paper transition-colors">Problem</a>
+        <a href="#solution" class="hover:text-paper transition-colors">Solution</a>
+        <a href="#dashboard" class="hover:text-paper transition-colors">Dashboard</a>
+        <a href="#stack" class="hover:text-paper transition-colors">Tech stack</a>
+        <a href="#demo" class="hover:text-paper transition-colors">Demo flow</a>
+      </div>
+    </div>
+    <div class="border-t border-paper/15">
+      <p class="max-w-6xl mx-auto px-6 sm:px-8 py-5 text-xs text-paper/60 font-mono">
+        Concept product, built to demonstrate the design — not a live agronomy service.
+      </p>
+    </div>
+  </footer>
+<script src="js/custom.js"></script>
+</body>
+</html>
