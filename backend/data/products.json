@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "created_at": "2026-08-01T12:04:32.510Z",
+    "name": "Copper Fungicide Spray",
+    "category": "treatment",
+    "price": 850,
+    "unit": "bottle",
+    "description": "Highly effective broad-spectrum fungicide. Treats powdery mildew, leaf blights, and downy mildew. Copper-based formula approved for organic use.",
+    "image": "images/copper_Fungicide.jpg",
+    "stock": 80
+  },
+  {
+    "id": 2,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Neem-Based Treatment",
+    "category": "treatment",
+    "price": 620,
+    "unit": "bottle",
+    "description": "Cold-pressed neem oil concentrate. Controls early-stage pest infestations, powdery mildew, and aphids. Chemical-free and safe for pollinators.",
+    "image": "images/Neem Oli.jpg",
+    "stock": 150
+  },
+  {
+    "id": 3,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Chlorantraniliprole Insecticide",
+    "category": "treatment",
+    "price": 1200,
+    "unit": "bottle",
+    "description": "Systemic insecticide targeting stem borers, leaf folders, and thrips. Long-lasting residual activity up to 3 weeks.",
+    "image": "images/Chlorantraniliprole.jpeg",
+    "stock": 60
+  },
+  {
+    "id": 4,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Sulfur Dust (Wettable)",
+    "category": "treatment",
+    "price": 480,
+    "unit": "kg",
+    "description": "Wettable sulfur powder for powdery mildew and rust diseases. Can be used as both spray and dust.",
+    "image": "images/copper_Fungicide.jpg",
+    "stock": 200
+  },
+  {
+    "id": 5,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Mancozeb Fungicide",
+    "category": "treatment",
+    "price": 560,
+    "unit": "packet",
+    "description": "Contact fungicide with multi-site action against early blight, late blight, and anthracnose.",
+    "image": "images/copper_Fungicide.jpg",
+    "stock": 120
+  },
+  {
+    "id": 6,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Trichoderma Bio-Fungicide",
+    "category": "treatment",
+    "price": 750,
+    "unit": "packet",
+    "description": "Biological soil treatment using beneficial Trichoderma fungi. Prevents root rot, damping-off, and fusarium wilt.",
+    "image": "images/Neem Oli.jpg",
+    "stock": 90
+  },
+  {
+    "id": 7,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Soil Moisture Sensor",
+    "category": "sensor",
+    "price": 2400,
+    "unit": "piece",
+    "description": "Capacitive soil moisture sensor with digital readout. Connects to irrigation system. IP67 waterproof.",
+    "image": "images/soil_moisture.jpg",
+    "stock": 40
+  },
+  {
+    "id": 8,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Drip Irrigation Kit",
+    "category": "equipment",
+    "price": 6200,
+    "unit": "kit",
+    "description": "Complete drip irrigation setup for 1 bigha. Includes mainline, lateral pipes, drippers, filters, and fittings.",
+    "image": "images/drip_irigation_kit.jpg",
+    "stock": 25
+  },
+  {
+    "id": 9,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Potassium Fertilizer (SOP)",
+    "category": "treatment",
+    "price": 890,
+    "unit": "kg",
+    "description": "Sulfate of Potash for improving fruit quality, disease resistance, and drought tolerance. Low chloride.",
+    "image": "images/copper_Fungicide.jpg",
+    "stock": 300
+  },
+  {
+    "id": 10,
+    "created_at": "2026-08-01T12:04:32.511Z",
+    "name": "Calcium Boron Spray",
+    "category": "treatment",
+    "price": 420,
+    "unit": "bottle",
+    "description": "Foliar spray for calcium and boron deficiency. Prevents blossom end rot and tip burn.",
+    "image": "images/Neem Oli.jpg",
+    "stock": 110
+  }
+]

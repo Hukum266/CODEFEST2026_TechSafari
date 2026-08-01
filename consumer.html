@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriGuardian AI — Consumer Shop</title>
+  <link rel="shortcut icon" href="images/head.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/i18n.js" defer></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F3F5EC', paperdeep: '#E7EBDA', ink: '#1C2618', inksoft: '#4A5741',
+            canopy: '#2F5233', canopylight: '#4F7A52', soil: '#8B5E34',
+            irrigation: '#2F6690', amber: '#B8710F', rust: '#A8452F', line: '#D4DAC4',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-paper text-ink font-body antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-display font-semibold text-lg tracking-tight">
+        <img class="h-[40px]" src="images/head.png" alt="logo">
+        AgriGuardian <span class="text-canopy">AI</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-inksoft">
+        <a href="index.html" class="hover:text-ink transition-colors" data-i18n="nav_home">Home</a>
+        <a href="farmer.html" class="hover:text-ink transition-colors" data-i18n="nav_farmers_shop">Farmers Shop</a>
+        <a href="consumer.html" class="text-canopy font-semibold" data-i18n="nav_consumer_shop">Consumer Shop</a>
+        <a href="diseases.html" class="hover:text-ink transition-colors" data-i18n="nav_disease">Disease Detection</a>
+        <a href="irrigation.html" class="hover:text-ink transition-colors" data-i18n="nav_irrigation">Irrigation</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="dark-toggle-slot"></span>
+        <span class="lang-toggle-slot"></span>
+        <a href="cart.html" class="relative text-inksoft hover:text-canopy transition-colors" title="View Cart">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span id="nav-cart-badge" class="absolute -top-1.5 -right-2 bg-amber text-paper text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border border-paper">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-10 border-b border-line">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+      <div>
+        <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-3" data-i18n="consumer_tag">Fresh · Verified · Traceable</p>
+        <h1 class="font-display font-semibold text-4xl sm:text-5xl tracking-tight text-ink" data-i18n="consumer_h1">Consumer Shop</h1>
+        <p class="mt-3 text-inksoft max-w-xl" data-i18n="consumer_desc">Farm-fresh produce listed directly by local farmers. Every item shows how it was grown — including disease-free and irrigation-optimized certifications.</p>
+      </div>
+      <a href="farmer.html" class="shrink-0 inline-flex items-center gap-2 border border-soil text-soil font-medium px-5 py-3 rounded-full hover:bg-soil hover:text-paper transition-colors text-sm">
+        <i class="fa-solid fa-tractor"></i> <span data-i18n="consumer_farmer_cta">Are you a farmer? List your produce</span>
+      </a>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="mt-8 flex flex-wrap gap-3">
+      <div class="flex items-center gap-2 font-mono text-xs bg-canopy/8 text-canopy border border-canopy/20 px-3 py-1.5 rounded-full">
+        <i class="fa-solid fa-shield-halved text-xs"></i> <span data-i18n="badge_verified">AgriGuardian Verified</span>
+      </div>
+      <div class="flex items-center gap-2 font-mono text-xs bg-irrigation/8 text-irrigation border border-irrigation/20 px-3 py-1.5 rounded-full">
+        <i class="fa-solid fa-droplet text-xs"></i> <span data-i18n="badge_water">Water-Optimized</span>
+      </div>
+      <div class="flex items-center gap-2 font-mono text-xs bg-amber/8 text-amber border border-amber/20 px-3 py-1.5 rounded-full">
+        <i class="fa-solid fa-seedling text-xs"></i> <span data-i18n="badge_disease_free_cert">Disease-Free Certified</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH BAR -->
+  <section class="max-w-6xl mx-auto px-6 sm:px-8 py-6">
+    <div class="relative max-w-md">
+      <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-inksoft text-sm"></i>
+      <input id="search-input" type="text" placeholder="Search crops, farm names..."
+        data-i18n-placeholder="search_ph"
+        class="w-full pl-10 pr-4 py-2.5 border border-line rounded-xl text-sm bg-white focus:outline-none focus:border-canopy transition"
+        oninput="debounceSearch(this.value)">
+    </div>
+  </section>
+
+  <!-- PRODUCE GRID -->
+  <section class="max-w-6xl mx-auto px-6 sm:px-8 pb-20">
+    <div id="produce-loading" class="flex items-center justify-center py-20">
+      <div class="w-8 h-8 rounded-full border-4 border-paperdeep border-t-canopy animate-spin"></div>
+      <p class="ml-4 font-mono text-sm text-inksoft" data-i18n="produce_loading">Loading produce listings...</p>
+    </div>
+    <div id="produce-error" class="hidden py-20 text-center">
+      <i class="fa-solid fa-triangle-exclamation text-3xl text-rust mb-4"></i>
+      <p class="text-inksoft" data-i18n="produce_error">Could not load produce listings. Make sure the backend server is running.</p>
+      <button onclick="loadProduce()" class="mt-4 text-sm text-canopy underline" data-i18n="retry">Retry</button>
+    </div>
+    <div id="produce-empty" class="hidden py-20 text-center">
+      <i class="fa-solid fa-basket-shopping text-4xl text-line mb-4"></i>
+      <p class="text-inksoft" data-i18n="produce_empty">No produce found matching your search.</p>
+    </div>
+    <div id="produce-grid" class="hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    <p id="produce-count" class="mt-6 font-mono text-xs text-inksoft"></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line bg-canopy text-paper">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div>
+        <p class="font-display font-semibold text-xl">AgriGuardian <span class="opacity-80">AI</span></p>
+        <p class="text-sm text-paper/75 mt-2 max-w-sm leading-relaxed">Farm-to-consumer traceability you can trust.</p>
+      </div>
+      <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-paper/80 font-mono">
+        <a href="index.html" class="hover:text-paper transition-colors">Home</a>
+        <a href="farmer.html" class="hover:text-paper transition-colors">Farmers Shop</a>
+        <a href="diseases.html" class="hover:text-paper transition-colors">Disease Detection</a>
+        <a href="irrigation.html" class="hover:text-paper transition-colors">Irrigation</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/custom.js"></script>
+  <script>
+    const API_BASE = 'http://localhost:3001/api';
+    let searchTimer = null;
+
+    function debounceSearch(val) {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => loadProduce(val), 350);
+    }
+
+    async function loadProduce(search = '') {
+      const grid    = document.getElementById('produce-grid');
+      const loading = document.getElementById('produce-loading');
+      const errorEl = document.getElementById('produce-error');
+      const emptyEl = document.getElementById('produce-empty');
+      const count   = document.getElementById('produce-count');
+
+      loading.classList.remove('hidden');
+      grid.classList.add('hidden');
+      errorEl.classList.add('hidden');
+      emptyEl.classList.add('hidden');
+
+      try {
+        const params = new URLSearchParams({ status: 'active' });
+        if (search) params.set('search', search);
+
+        const resp = await fetch(`${API_BASE}/produce?${params}`);
+        if (!resp.ok) throw new Error(`Server ${resp.status}`);
+        const data = await resp.json();
+        const listings = data.listings || [];
+
+        loading.classList.add('hidden');
+
+        if (listings.length === 0) {
+          emptyEl.classList.remove('hidden');
+          count.textContent = '';
+          return;
+        }
+
+        grid.classList.remove('hidden');
+        grid.innerHTML = listings.map(p => `
+          <article class="rounded-xl border border-line bg-white p-5 flex flex-col gap-3">
+            <div class="relative">
+              <img class="w-full h-48 object-cover rounded-lg bg-paperdeep"
+                   src="${p.image || 'images/tomatoes1.jpg'}"
+                   alt="${p.crop_name}"
+                   onerror="this.src='images/tomatoes1.jpg'">
+              ${p.disease_free ? `<span class="absolute top-2 left-2 font-mono text-[10px] bg-canopy text-paper px-2 py-0.5 rounded-full">${t('disease_free_tag')}</span>` : ''}
+              ${p.irrigation_optimized ? `<span class="absolute top-2 right-2 font-mono text-[10px] bg-irrigation text-white px-2 py-0.5 rounded-full">${t('water_smart_tag')}</span>` : ''}
+            </div>
+            <div>
+              <h3 class="font-display font-medium text-ink text-lg">${p.crop_name}</h3>
+              <p class="font-mono text-xs text-inksoft mt-0.5">${p.farm_name} · ${p.farmer_name}</p>
+            </div>
+            <p class="text-sm text-inksoft flex-1 leading-relaxed">${p.description || ''}</p>
+            ${p.certifications && p.certifications.length ? `
+              <div class="flex flex-wrap gap-1.5">
+                ${p.certifications.map(c => `<span class="font-mono text-[10px] bg-canopy/8 text-canopy border border-canopy/20 px-2 py-0.5 rounded-full">${c}</span>`).join('')}
+              </div>
+            ` : ''}
+            <div class="flex items-center justify-between pt-1 border-t border-line">
+              <div>
+                <span class="font-mono text-base font-medium text-ink">Rs. ${p.price}</span>
+                <span class="font-mono text-xs text-inksoft">/${p.unit}</span>
+              </div>
+              <button type="button"
+                onclick="addToCart(this, '${p.crop_name.replace(/'/g, "\\'")} (${p.farm_name.replace(/'/g, "\\'")})', ${p.price}, '${p.image || ''}')"
+                class="font-mono text-[11px] font-medium text-canopy border border-canopy/40 rounded-full px-3 py-1.5 hover:bg-canopy hover:text-paper transition shadow-sm">
+                ${t('add_to_cart')}
+              </button>
+            </div>
+            <p class="font-mono text-[10px] text-inksoft/60">
+              ${p.quantity > 100 ? t('in_stock') : p.quantity > 0 ? `${p.quantity} ${p.unit} ${t('low_stock_suffix')}` : t('out_of_stock')} ·
+              ${t('listed_label') || 'Listed'} ${new Date(p.created_at).toLocaleDateString('en-NP', { month: 'short', day: 'numeric' })}
+            </p>
+          </article>
+        `).join('');
+
+        count.textContent = `${listings.length} listing${listings.length !== 1 ? 's' : ''} available`;
+
+      } catch (err) {
+        loading.classList.add('hidden');
+        errorEl.classList.remove('hidden');
+        console.error('Failed to load produce:', err);
+      }
+    }
+
+    // expose rerenderDynamic for language toggle
+    function rerenderDynamic() { loadProduce(document.getElementById('search-input')?.value || ''); }
+    loadProduce();
+  </script>
+</body>
+</html>

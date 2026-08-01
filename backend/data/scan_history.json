@@ -1,0 +1,389 @@
+[
+  {
+    "id": 1,
+    "created_at": "2026-08-01T12:06:16.238Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "tomatoes.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 2,
+    "created_at": "2026-08-01T12:16:31.110Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "OIP.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 3,
+    "created_at": "2026-08-01T12:16:43.680Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "OIP.webp",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 4,
+    "created_at": "2026-08-01T12:23:27.897Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "mango.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 5,
+    "created_at": "2026-08-01T12:41:19.611Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "OIP.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 6,
+    "created_at": "2026-08-01T12:41:32.183Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "mango.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 7,
+    "created_at": "2026-08-01T12:44:17.869Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "OIP.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 8,
+    "created_at": "2026-08-01T12:45:09.701Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "OIP (1).webp",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 9,
+    "created_at": "2026-08-01T12:45:13.596Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download.webp",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 10,
+    "created_at": "2026-08-01T12:45:46.426Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download.webp",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 11,
+    "created_at": "2026-08-01T12:48:00.580Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "OIP.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 12,
+    "created_at": "2026-08-01T12:49:29.122Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 13,
+    "created_at": "2026-08-01T12:49:34.482Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (2).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 14,
+    "created_at": "2026-08-01T12:49:45.545Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "OIP.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 15,
+    "created_at": "2026-08-01T12:49:51.178Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 16,
+    "created_at": "2026-08-01T12:49:57.011Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "WhatsApp Image 2026-07-27 at 3.37.44 PM.jpeg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 17,
+    "created_at": "2026-08-01T12:50:05.312Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "template.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 18,
+    "created_at": "2026-08-01T12:56:16.351Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 19,
+    "created_at": "2026-08-01T12:57:32.094Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 20,
+    "created_at": "2026-08-01T12:57:38.342Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (2).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 21,
+    "created_at": "2026-08-01T12:57:43.133Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (1).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 22,
+    "created_at": "2026-08-01T13:00:50.730Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 23,
+    "created_at": "2026-08-01T13:01:00.767Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 24,
+    "created_at": "2026-08-01T13:01:21.233Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 25,
+    "created_at": "2026-08-01T13:15:55.961Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 26,
+    "created_at": "2026-08-01T13:16:07.533Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 27,
+    "created_at": "2026-08-01T13:16:35.452Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 28,
+    "created_at": "2026-08-01T13:16:52.750Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "WhatsApp Image 2026-07-29 at 10.56.43 AM.jpeg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 29,
+    "created_at": "2026-08-01T13:17:37.939Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download.webp",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 30,
+    "created_at": "2026-08-01T13:17:53.699Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "mango.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 31,
+    "created_at": "2026-08-01T13:20:40.255Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 32,
+    "created_at": "2026-08-01T13:22:11.028Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (2).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 33,
+    "created_at": "2026-08-01T13:24:43.809Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 34,
+    "created_at": "2026-08-01T13:38:53.326Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 35,
+    "created_at": "2026-08-01T13:48:19.884Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (2).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 36,
+    "created_at": "2026-08-01T15:31:37.676Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 37,
+    "created_at": "2026-08-01T16:15:29.854Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (2).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 38,
+    "created_at": "2026-08-01T16:18:08.552Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 39,
+    "created_at": "2026-08-01T16:18:20.662Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "mango.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 40,
+    "created_at": "2026-08-01T16:20:11.592Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 41,
+    "created_at": "2026-08-01T16:22:49.567Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (1).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 42,
+    "created_at": "2026-08-01T16:23:16.976Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download.jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 43,
+    "created_at": "2026-08-01T16:35:48.878Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (1).jpg",
+    "slug": "powdery-mildew"
+  }
+]

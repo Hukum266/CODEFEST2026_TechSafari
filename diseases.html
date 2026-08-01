@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriGuardian AI — Disease Detection</title>
+  <link rel="shortcut icon" href="images/head.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/i18n.js" defer></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F3F5EC', paperdeep: '#E7EBDA', ink: '#1C2618', inksoft: '#4A5741',
+            canopy: '#2F5233', canopylight: '#4F7A52', soil: '#8B5E34',
+            irrigation: '#2F6690', amber: '#B8710F', rust: '#A8452F', line: '#D4DAC4',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-paper text-ink font-body antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-display font-semibold text-lg tracking-tight">
+        <img class="h-[40px]" src="images/head.png" alt="logo">
+        AgriGuardian <span class="text-canopy">AI</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-inksoft">
+        <a href="index.html" class="hover:text-ink transition-colors" data-i18n="nav_home">Home</a>
+        <a href="farmer.html" class="hover:text-ink transition-colors" data-i18n="nav_farmers_shop">Farmers Shop</a>
+        <a href="consumer.html" class="hover:text-ink transition-colors" data-i18n="nav_consumer_shop">Consumer Shop</a>
+        <a href="diseases.html" class="text-canopy font-semibold" data-i18n="nav_disease">Disease Detection</a>
+        <a href="irrigation.html" class="hover:text-ink transition-colors" data-i18n="nav_irrigation">Irrigation</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="dark-toggle-slot"></span>
+        <span class="lang-toggle-slot"></span>
+        <a href="cart.html" class="relative text-inksoft hover:text-canopy transition-colors" title="View Cart">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span id="nav-cart-badge" class="absolute -top-1.5 -right-2 bg-amber text-paper text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border border-paper">0</span>
+        </a>
+        <a href="#scanner-section" class="text-sm font-medium border border-canopy text-canopy px-4 py-2 rounded-full hover:bg-canopy hover:text-paper transition-colors hidden sm:block">Try a scan</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SCANNER HERO -->
+  <section id="scanner-section" class="max-w-4xl mx-auto px-6 sm:px-8 pt-16 pb-12 text-center">
+    <p class="font-mono text-xs tracking-[0.18em] text-canopy uppercase mb-5" data-i18n="diseases_tag">Instant AI Diagnosis</p>
+    <h1 class="font-display font-semibold text-[2.5rem] sm:text-5xl leading-[1.1] tracking-tight text-ink mb-6" data-i18n="diseases_h1">
+      See the disease before the leaf shows it.
+    </h1>
+    <p class="text-lg text-inksoft leading-relaxed max-w-2xl mx-auto mb-10" data-i18n="diseases_desc">
+      Upload a photo of a plant leaf. The AI instantly analyzes symptoms, identifies the disease, and recommends
+      targeted treatments from our shop.
+    </p>
+
+    <!-- Upload UI -->
+    <div id="upload-ui" class="border-2 border-dashed border-canopy/40 rounded-3xl bg-white p-12 hover:bg-paperdeep/30 transition cursor-pointer max-w-2xl mx-auto relative overflow-hidden">
+      <input type="file" id="image-upload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*" onchange="handleUpload(event)">
+      <div class="flex flex-col items-center justify-center gap-4 pointer-events-none">
+        <div class="w-16 h-16 rounded-full bg-canopy/10 flex items-center justify-center">
+          <i class="fa-solid fa-camera text-2xl text-canopy"></i>
+        </div>
+        <h3 class="font-display font-medium text-xl text-ink" data-i18n="upload_title">Upload a leaf photo</h3>
+        <p class="text-sm text-inksoft" data-i18n="upload_sub">Supports JPG, PNG, WEBP · Max 10MB</p>
+        <p class="text-xs text-inksoft/60 mt-1" data-i18n="upload_powered">Powered by Gemini Vision AI</p>
+      </div>
+    </div>
+
+    <!-- Loading UI -->
+    <div id="loading-ui" class="hidden max-w-2xl mx-auto py-20 flex-col items-center justify-center gap-6">
+      <div class="relative w-16 h-16 rounded-full border-4 border-paperdeep border-t-canopy animate-spin"></div>
+      <div class="text-center">
+        <p id="loading-text" class="font-mono text-sm uppercase tracking-wider text-inksoft animate-pulse" data-i18n="loading_analyzing">Analyzing leaf structure...</p>
+        <p class="text-xs text-inksoft/60 mt-2">Running computer vision model</p>
+      </div>
+    </div>
+
+    <!-- Error UI -->
+    <div id="error-ui" class="hidden max-w-2xl mx-auto py-10 flex flex-col items-center justify-center gap-4 border-2 border-rust/40 rounded-3xl bg-rust/5 mt-8">
+      <div class="w-16 h-16 rounded-full bg-rust/10 flex items-center justify-center">
+        <i class="fa-solid fa-triangle-exclamation text-2xl text-rust"></i>
+      </div>
+      <h3 class="font-display font-medium text-xl text-ink" data-i18n="error_title">Image not recognized</h3>
+      <p id="error-message" class="text-sm text-inksoft text-center px-6" data-i18n="error_default">We could not detect a valid leaf structure. Please upload a clear photo of a plant leaf.</p>
+      <button onclick="resetScanner()" class="mt-2 font-mono text-xs uppercase tracking-wider font-medium text-paper bg-ink rounded-full px-5 py-2.5 hover:bg-canopy transition" data-i18n="try_again">Try Again</button>
+    </div>
+  </section>
+
+  <!-- RESULTS UI -->
+  <section id="results-ui" class="hidden border-t border-line bg-paperdeep/60 pb-20 pt-16">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8">
+
+      <!-- Demo mode banner -->
+      <div id="demo-banner" class="hidden mb-8 rounded-xl border border-amber/40 bg-amber/8 px-5 py-3 flex items-start gap-3">
+        <i class="fa-solid fa-circle-info text-amber mt-0.5 shrink-0"></i>
+        <div>
+          <p class="text-sm font-medium text-ink" data-i18n="demo_mode_title">Demo Mode</p>
+          <p id="demo-banner-text" class="text-xs text-inksoft mt-0.5">Set <code class="font-mono bg-paperdeep px-1 rounded">GEMINI_API_KEY</code> in <code class="font-mono bg-paperdeep px-1 rounded">backend/.env</code> to enable real AI analysis.</p>
+        </div>
+      </div>
+
+      <h2 class="font-display font-semibold text-3xl tracking-tight mb-10 text-center" data-i18n="results_title">Scan Results</h2>
+
+      <div class="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-start">
+
+        <!-- Left: preview image -->
+        <div class="relative rounded-2xl bg-white border border-line p-4 shadow-sm">
+          <div class="relative rounded-xl overflow-hidden bg-ink">
+            <img id="preview-image" src="" alt="Scanned Leaf" class="w-full h-auto max-h-[450px] object-contain opacity-90">
+            <!-- Affected area overlay -->
+            <div id="affected-overlay" class="absolute top-[20%] left-[25%] w-[50%] h-[45%] border-2 border-dashed border-amber rounded-lg bg-amber/15 flex items-start p-2 shadow-[0_0_15px_rgba(184,113,15,0.3)]">
+              <span id="overlay-label" class="bg-amber text-paper font-mono text-[10px] px-2 py-0.5 rounded">Detected Area</span>
+            </div>
+          </div>
+          <!-- Scan metadata -->
+          <div class="mt-4 grid grid-cols-2 gap-2 text-xs font-mono text-inksoft">
+            <div class="bg-paperdeep rounded-lg px-3 py-2">
+              <p class="text-[10px] uppercase tracking-wider mb-1" data-i18n="result_affected_label">Affected Area</p>
+              <p id="result-affected-pct" class="text-ink font-medium">—</p>
+            </div>
+            <div class="bg-paperdeep rounded-lg px-3 py-2">
+              <p class="text-[10px] uppercase tracking-wider mb-1" data-i18n="result_confidence_label">Confidence</p>
+              <p id="result-confidence" class="text-ink font-medium">—</p>
+            </div>
+          </div>
+          <div class="mt-3 flex gap-3">
+            <button onclick="resetScanner()" class="flex-1 border border-line text-ink text-sm font-medium py-2 rounded-lg hover:bg-paperdeep transition">
+              <i class="fa-solid fa-rotate-left mr-1"></i> <span data-i18n="scan_another">Scan Another</span>
+            </button>
+            <a href="irrigation.html" id="irrigation-link" class="flex-1 text-center border border-irrigation text-irrigation text-sm font-medium py-2 rounded-lg hover:bg-irrigation hover:text-white transition">
+              <i class="fa-solid fa-droplet mr-1"></i> <span data-i18n="irrigation_advice_btn">Irrigation Advice</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: diagnosis + treatments -->
+        <div class="flex flex-col gap-6">
+
+          <!-- Diagnosis card -->
+          <div class="rounded-2xl border border-line bg-white p-8 shadow-sm">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <span id="result-severity-badge" class="font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full">—</span>
+              <span id="result-confidence-badge" class="font-mono text-sm text-inksoft font-medium">—</span>
+            </div>
+            <h3 id="result-disease-name" class="font-display font-semibold text-3xl text-ink">Analyzing...</h3>
+            <div id="result-symptoms" class="mt-4 flex flex-wrap gap-2"></div>
+            <p class="mt-4 text-sm text-inksoft leading-relaxed">
+              <strong class="text-ink">Diagnosis: </strong>
+              <span id="result-explanation">—</span>
+            </p>
+            <p class="mt-3 text-sm text-inksoft leading-relaxed">
+              <strong class="text-ink">Action required: </strong>
+              <span id="result-action">—</span>
+            </p>
+            <!-- Irrigation impact -->
+            <div class="mt-5 rounded-lg border border-irrigation/30 bg-irrigation/5 px-4 py-3">
+              <p class="text-xs font-mono text-irrigation uppercase tracking-wider mb-1">
+                <i class="fa-solid fa-droplet mr-1"></i> Irrigation Impact
+              </p>
+              <p id="result-irrigation" class="text-sm text-ink">—</p>
+            </div>
+          </div>
+
+          <!-- Treatment recommendations -->
+          <div class="rounded-2xl border border-canopy/30 bg-canopy/5 p-6 shadow-sm">
+            <h4 class="font-display font-medium text-lg text-ink mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-leaf text-canopy"></i> <span data-i18n="recommended_treatments">Recommended Treatments</span>
+              <span class="text-xs font-mono text-inksoft font-normal" data-i18n="from_our_shop">(from our shop)</span>
+            </h4>
+            <div id="treatment-products" class="flex flex-col gap-4">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Severity advice -->
+          <div id="severity-advice-card" class="hidden rounded-xl border border-amber/30 bg-amber/5 px-5 py-4">
+            <p class="text-xs font-mono text-amber uppercase tracking-wider mb-2">
+              <i class="fa-solid fa-circle-exclamation mr-1"></i> <span data-i18n="severity_advice_label">Severity Advice</span>
+            </p>
+            <p id="severity-advice-text" class="text-sm text-ink leading-relaxed">—</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Disease info detail -->
+      <div id="disease-detail" class="hidden mt-10 rounded-2xl border border-line bg-white p-8">
+        <h3 class="font-display font-semibold text-xl text-ink mb-6" data-i18n="about_disease_title">About this Disease</h3>
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="cause_label">Cause</p>
+            <p id="disease-cause" class="text-sm text-ink leading-relaxed">—</p>
+          </div>
+          <div>
+            <p class="font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="symptoms_label_text">Symptoms</p>
+            <p id="disease-symptoms" class="text-sm text-ink leading-relaxed">—</p>
+          </div>
+          <div class="sm:col-span-2">
+            <p class="font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="full_irrigation_label">Full Irrigation Recommendation</p>
+            <p id="disease-irrigation" class="text-sm text-ink leading-relaxed">—</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line bg-canopy text-paper mt-10">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div>
+        <p class="font-display font-semibold text-xl">AgriGuardian <span class="opacity-80">AI</span></p>
+        <p class="text-sm text-paper/75 mt-2 max-w-sm leading-relaxed">Detects plant disease before it spreads.</p>
+      </div>
+      <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-paper/80 font-mono">
+        <a href="index.html" class="hover:text-paper transition-colors" data-i18n="nav_home">Home</a>
+        <a href="farmer.html" class="hover:text-paper transition-colors" data-i18n="nav_farmers_shop">Farmers Shop</a>
+        <a href="consumer.html" class="hover:text-paper transition-colors" data-i18n="nav_consumer_shop">Consumer Shop</a>
+        <a href="irrigation.html" class="hover:text-paper transition-colors" data-i18n="nav_irrigation">Irrigation</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/custom.js"></script>
+  <script>
+    const API_BASE = 'http://localhost:3001/api';
+    // expose rerenderDynamic for i18n toggle
+    function rerenderDynamic() { /* results re-render on next scan */ }
+
+    async function handleUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const uploadUI    = document.getElementById('upload-ui');
+      const loadingUI   = document.getElementById('loading-ui');
+      const resultsUI   = document.getElementById('results-ui');
+      const errorUI     = document.getElementById('error-ui');
+      const previewImg  = document.getElementById('preview-image');
+      const loadingText = document.getElementById('loading-text');
+
+      // Show preview + loading
+      previewImg.src = URL.createObjectURL(file);
+      uploadUI.classList.add('hidden');
+      errorUI.classList.add('hidden');
+      loadingUI.classList.remove('hidden');
+      loadingUI.classList.add('flex');
+      resultsUI.classList.add('hidden');
+
+      const steps = [
+        'Verifying image structure...',
+        'Running computer vision model...',
+        'Identifying disease markers...',
+        'Matching treatment database...',
+      ];
+      let stepIdx = 0;
+      const stepInterval = setInterval(() => {
+        if (stepIdx < steps.length) {
+          loadingText.textContent = steps[stepIdx++];
+        }
+      }, 700);
+
+      try {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const resp = await fetch(`${API_BASE}/detect`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        clearInterval(stepInterval);
+
+        if (!resp.ok) {
+          const err = await resp.json().catch(() => ({}));
+          if (resp.status === 422) {
+            // Not a leaf
+            document.getElementById('error-message').textContent =
+              err.message || 'No plant leaf detected. Please upload a clear photo of a plant leaf.';
+            showError();
+            return;
+          }
+          throw new Error(err.error || `Server error ${resp.status}`);
+        }
+
+        const data = await resp.json();
+        renderResults(data);
+
+      } catch (err) {
+        clearInterval(stepInterval);
+        document.getElementById('error-message').textContent =
+          `Could not reach the AI server. Make sure the backend is running on port 3001. (${err.message})`;
+        showError();
+      }
+    }
+
+    function showError() {
+      document.getElementById('loading-ui').classList.add('hidden');
+      document.getElementById('loading-ui').classList.remove('flex');
+      const errorUI = document.getElementById('error-ui');
+      errorUI.classList.remove('hidden');
+      errorUI.classList.add('flex');
+    }
+
+    function renderResults(data) {
+      document.getElementById('loading-ui').classList.add('hidden');
+      document.getElementById('loading-ui').classList.remove('flex');
+
+      const resultsUI = document.getElementById('results-ui');
+      resultsUI.classList.remove('hidden');
+      resultsUI.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      const r = data.result;
+
+      // Demo banner
+      if (data.demo_mode) {
+        const banner = document.getElementById('demo-banner');
+        banner.classList.remove('hidden');
+        banner.classList.add('flex');
+        if (data.demo_note) document.getElementById('demo-banner-text').textContent = data.demo_note;
+      }
+
+      // Disease name
+      document.getElementById('result-disease-name').textContent = r.disease_name || 'Unknown';
+
+      // Confidence
+      const confPct = r.confidence ? `${Math.round(r.confidence * 100)}% Confidence` : '—';
+      document.getElementById('result-confidence').textContent = confPct;
+      document.getElementById('result-confidence-badge').textContent = confPct;
+
+      // Severity badge
+      const badge = document.getElementById('result-severity-badge');
+      const severityColors = { advanced: 'bg-rust/10 text-rust', moderate: 'bg-amber/10 text-amber', early: 'bg-canopy/10 text-canopy' };
+      badge.textContent = r.severity ? r.severity.charAt(0).toUpperCase() + r.severity.slice(1) + ' Severity' : '—';
+      badge.className = `font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full ${severityColors[r.severity] || 'bg-inksoft/10 text-inksoft'}`;
+
+      // Affected area
+      document.getElementById('result-affected-pct').textContent =
+        r.affected_area_percent != null ? `${r.affected_area_percent}% of leaf` : 'N/A';
+
+      // Symptoms chips
+      const symptomsEl = document.getElementById('result-symptoms');
+      symptomsEl.innerHTML = (r.symptoms_observed || [])
+        .map(s => `<span class="text-xs font-mono bg-paperdeep text-inksoft px-2.5 py-1 rounded-full">${s}</span>`)
+        .join('');
+
+      // Text fields
+      document.getElementById('result-explanation').textContent = r.diagnosis_explanation || '—';
+      document.getElementById('result-action').textContent = r.immediate_action || '—';
+      document.getElementById('result-irrigation').textContent = r.irrigation_impact || '—';
+
+      // Severity advice card
+      if (r.severity_advice) {
+        document.getElementById('severity-advice-text').textContent = r.severity_advice;
+        document.getElementById('severity-advice-card').classList.remove('hidden');
+      }
+
+      // Disease detail
+      if (r.disease_info) {
+        document.getElementById('disease-cause').textContent = r.disease_info.cause || '—';
+        document.getElementById('disease-symptoms').textContent = r.disease_info.symptoms || '—';
+        document.getElementById('disease-irrigation').textContent = r.irrigation_recommendation || '—';
+        document.getElementById('disease-detail').classList.remove('hidden');
+      }
+
+      // Irrigation link — pre-fill disease
+      const irrLink = document.getElementById('irrigation-link');
+      if (r.disease_slug) {
+        irrLink.href = `irrigation.html?disease=${r.disease_slug}`;
+      }
+
+      // Treatment products
+      renderTreatments(data.treatments || []);
+    }
+
+    function renderTreatments(treatments) {
+      const container = document.getElementById('treatment-products');
+      if (!treatments.length) {
+        container.innerHTML = `<p class="text-sm text-inksoft">No specific treatments found. Visit the <a href="farmer.html" class="text-canopy underline">Farmers Shop</a> for all products.</p>`;
+        return;
+      }
+      container.innerHTML = treatments.map(p => `
+        <article class="rounded-xl border border-line bg-white p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 hover:border-canopy transition">
+          <img class="w-full sm:w-20 h-28 sm:h-20 object-cover rounded-lg bg-paperdeep"
+               src="${p.image || 'images/copper_Fungicide.jpg'}"
+               alt="${p.name}"
+               onerror="this.src='images/copper_Fungicide.jpg'">
+          <div class="flex-1 w-full">
+            <div class="flex items-start justify-between gap-2 flex-wrap">
+              <h3 class="font-display font-medium text-ink">${p.name}</h3>
+              <span class="font-mono text-xs bg-canopy/10 text-canopy px-2 py-0.5 rounded-full shrink-0">Priority ${p.priority}</span>
+            </div>
+            ${p.treatment_note ? `<p class="text-xs text-canopy mt-1 leading-relaxed">${p.treatment_note}</p>` : ''}
+            <p class="text-xs text-inksoft mt-1">${p.description || ''}</p>
+            <div class="flex items-center justify-between pt-3">
+              <span class="font-mono text-sm font-medium text-ink">Rs. ${p.price.toLocaleString()}</span>
+              <button type="button"
+                class="font-mono text-[11px] font-medium text-paper bg-canopy rounded-full px-4 py-1.5 hover:bg-ink transition shadow-sm"
+                onclick="addToCart(this, '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.image || ''}')">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function resetScanner() {
+      document.getElementById('upload-ui').classList.remove('hidden');
+      document.getElementById('results-ui').classList.add('hidden');
+      document.getElementById('error-ui').classList.add('hidden');
+      document.getElementById('error-ui').classList.remove('flex');
+      document.getElementById('demo-banner').classList.add('hidden');
+      document.getElementById('demo-banner').classList.remove('flex');
+      document.getElementById('disease-detail').classList.add('hidden');
+      document.getElementById('severity-advice-card').classList.add('hidden');
+      document.getElementById('image-upload').value = '';
+      document.getElementById('upload-ui').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
+</body>
+</html>

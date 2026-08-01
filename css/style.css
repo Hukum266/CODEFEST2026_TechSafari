@@ -1,0 +1,227 @@
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "ss01";
+}
+
+/* ─── Scan animation ─────────────────────────────────────────────────────────── */
+.scan-line {
+  animation: scan 3.6s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(420px); }
+  100% { transform: translateY(0); }
+}
+
+.pulse-dot {
+  animation: pulseDot 2.2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-line, .pulse-dot { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+.grain {
+  background-image: radial-gradient(currentColor 0.6px, transparent 0.6px);
+  background-size: 14px 14px;
+}
+
+:focus-visible {
+  outline: 2px solid #2F5233;
+  outline-offset: 2px;
+}
+
+/* ─── Dark mode ──────────────────────────────────────────────────────────────── */
+/*
+  Strategy: add class "dark" to <html>. Override every surface colour with
+  CSS custom properties so Tailwind bg-* / text-* classes still work through
+  the variable layer, and we patch the ones that Tailwind generates inline.
+  Additionally we supply targeted [html.dark] selectors for all white / paper
+  surfaces used throughout the pages.
+*/
+
+/* Light defaults (CSS vars used by dark overrides) */
+:root {
+  --bg-paper:      #F3F5EC;
+  --bg-paperdeep:  #E7EBDA;
+  --text-ink:      #1C2618;
+  --text-inksoft:  #4A5741;
+  --border-line:   #D4DAC4;
+  --surface-white: #ffffff;
+  --surface-card:  #ffffff;
+}
+
+/* Dark mode variable overrides */
+html.dark {
+  --bg-paper:      #141A12;
+  --bg-paperdeep:  #1C2418;
+  --text-ink:      #E8EDE0;
+  --text-inksoft:  #9BAA8E;
+  --border-line:   #2E3D28;
+  --surface-white: #1E2A1A;
+  --surface-card:  #222E1E;
+  color-scheme: dark;
+}
+
+/* Apply variables to body */
+html.dark body {
+  background-color: var(--bg-paper);
+  color: var(--text-ink);
+}
+
+/* ── Backgrounds ── */
+html.dark .bg-paper    { background-color: var(--bg-paper) !important; }
+html.dark .bg-paperdeep { background-color: var(--bg-paperdeep) !important; }
+html.dark .bg-white    { background-color: var(--surface-white) !important; }
+
+/* header/nav */
+html.dark header {
+  background-color: color-mix(in srgb, var(--bg-paper) 92%, transparent) !important;
+  border-color: var(--border-line) !important;
+}
+
+/* ── Text ── */
+html.dark .text-ink      { color: var(--text-ink) !important; }
+html.dark .text-inksoft  { color: var(--text-inksoft) !important; }
+
+/* ── Borders ── */
+html.dark .border-line   { border-color: var(--border-line) !important; }
+
+/* ── Cards / articles ── */
+html.dark article,
+html.dark .rounded-xl,
+html.dark .rounded-2xl {
+  border-color: var(--border-line);
+}
+
+/* Cards that use bg-white */
+html.dark article.bg-white,
+html.dark div.bg-white,
+html.dark .rounded-xl.bg-white,
+html.dark .rounded-2xl.bg-white {
+  background-color: var(--surface-card) !important;
+}
+
+/* ── Inputs / selects / textareas ── */
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: var(--surface-white) !important;
+  color: var(--text-ink) !important;
+  border-color: var(--border-line) !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: var(--text-inksoft) !important;
+  opacity: 0.7;
+}
+
+/* ── Paperdeep backgrounds (sections) ── */
+html.dark .bg-paperdeep\/60 { background-color: color-mix(in srgb, var(--bg-paperdeep) 60%, transparent) !important; }
+html.dark .bg-paperdeep\/30 { background-color: color-mix(in srgb, var(--bg-paperdeep) 30%, transparent) !important; }
+
+/* ── Modal backdrop ── */
+html.dark #sell-modal > div,
+html.dark .modal-panel {
+  background-color: var(--bg-paperdeep) !important;
+  border-color: var(--border-line) !important;
+}
+
+/* ── Nav links ── */
+html.dark nav a { color: var(--text-inksoft); }
+html.dark nav a:hover { color: var(--text-ink); }
+
+/* ── Hover states ── */
+html.dark .hover\:bg-paperdeep:hover { background-color: var(--bg-paperdeep) !important; }
+html.dark .hover\:bg-white:hover     { background-color: var(--surface-white) !important; }
+
+/* ── Filter chip inactive state ── */
+html.dark .filter-btn:not(.active) {
+  background-color: transparent;
+  border-color: var(--border-line) !important;
+  color: var(--text-inksoft) !important;
+}
+html.dark .filter-btn:not(.active):hover {
+  border-color: #4F7A52 !important;
+  color: var(--text-ink) !important;
+}
+
+/* ── Image upload preview area ── */
+html.dark .upload-preview-area {
+  background-color: var(--surface-white) !important;
+  border-color: var(--border-line) !important;
+}
+
+/* ── Dark mode toggle button ── */
+.dark-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-line, #D4DAC4);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  color: var(--text-inksoft, #4A5741);
+  flex-shrink: 0;
+}
+
+.dark-toggle:hover {
+  background: var(--bg-paperdeep, #E7EBDA);
+}
+
+html.dark .dark-toggle {
+  border-color: var(--border-line);
+  color: var(--text-inksoft);
+}
+
+html.dark .dark-toggle:hover {
+  background: var(--surface-white);
+}
+
+/* Sun icon shown in dark mode, moon shown in light */
+.dark-toggle .icon-moon { display: block; }
+.dark-toggle .icon-sun  { display: none; }
+html.dark .dark-toggle .icon-moon { display: none; }
+html.dark .dark-toggle .icon-sun  { display: block; }
+
+/* ── Backdrop blur helper for dark nav ── */
+html.dark .backdrop-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Table / list separators ── */
+html.dark .border-b { border-color: var(--border-line) !important; }
+html.dark .border-t { border-color: var(--border-line) !important; }
+
+/* ── Smooth transition for theme switch ── */
+body,
+body *,
+body *::before,
+body *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.18s;
+  transition-timing-function: ease;
+}
+
+/* Exception: don't slow down animations */
+.scan-line,
+.pulse-dot,
+.animate-spin {
+  transition: none !important;
+}

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriGuardian AI — Shopping Cart</title>
+  <link rel="shortcut icon" href="images/head.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/i18n.js" defer></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F3F5EC', paperdeep: '#E7EBDA', ink: '#1C2618', inksoft: '#4A5741',
+            canopy: '#2F5233', canopylight: '#4F7A52', soil: '#8B5E34',
+            irrigation: '#2F6690', amber: '#B8710F', rust: '#A8452F', line: '#D4DAC4',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-paper text-ink font-body antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-display font-semibold text-lg tracking-tight">
+        <img class="h-[40px]" src="images/head.png" alt="logo">
+        AgriGuardian <span class="text-canopy">AI</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-inksoft">
+        <a href="index.html" class="hover:text-ink transition-colors" data-i18n="nav_home">Home</a>
+        <a href="farmer.html" class="hover:text-ink transition-colors" data-i18n="nav_farmers_shop">Farmers Shop</a>
+        <a href="consumer.html" class="hover:text-ink transition-colors" data-i18n="nav_consumer_shop">Consumer Shop</a>
+        <a href="diseases.html" class="hover:text-ink transition-colors" data-i18n="nav_disease">Disease Detection</a>
+        <a href="irrigation.html" class="hover:text-ink transition-colors" data-i18n="nav_irrigation">Irrigation</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="dark-toggle-slot"></span>
+        <span class="lang-toggle-slot"></span>
+        <a href="cart.html" class="relative text-canopy transition-colors" title="View Cart">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span id="nav-cart-badge" class="absolute -top-1.5 -right-2 bg-amber text-paper text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border border-paper">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CART SECTION -->
+  <section class="max-w-4xl mx-auto px-6 sm:px-8 pt-16 pb-20">
+    <h1 class="font-display font-semibold text-3xl sm:text-4xl tracking-tight text-ink mb-10" data-i18n="cart_title">Your Cart</h1>
+
+    <!-- Order success banner (hidden by default) -->
+    <div id="order-success" class="hidden mb-8 rounded-2xl border border-canopy/30 bg-canopy/5 p-8 text-center">
+      <div class="w-14 h-14 rounded-full bg-canopy/15 flex items-center justify-center mx-auto mb-4">
+        <i class="fa-solid fa-check text-2xl text-canopy"></i>
+      </div>
+      <h2 class="font-display font-semibold text-2xl text-ink mb-2" data-i18n="order_confirmed_title">Order Confirmed!</h2>
+      <p id="order-id-text" class="font-mono text-sm text-inksoft mb-1">Order ID: —</p>
+      <p class="text-sm text-inksoft" data-i18n="order_delivery_est">Estimated delivery: 2-3 business days</p>
+      <a href="farmer.html" class="inline-block mt-5 text-sm font-medium text-canopy border border-canopy/30 px-5 py-2 rounded-full hover:bg-canopy hover:text-paper transition" data-i18n="continue_shopping">Continue Shopping</a>
+    </div>
+
+    <div id="cart-main" class="grid lg:grid-cols-[1fr_350px] gap-10 items-start">
+
+      <!-- Cart items -->
+      <div id="cart-container" class="flex flex-col gap-4"></div>
+
+      <!-- Order summary -->
+      <div class="rounded-2xl border border-line bg-white p-6 shadow-sm sticky top-24">
+        <h2 class="font-display font-medium text-xl text-ink mb-5" data-i18n="order_summary">Order Summary</h2>
+        <div class="flex justify-between items-center mb-3 text-sm text-inksoft">
+          <span data-i18n="subtotal_label">Subtotal</span>
+          <span id="cart-subtotal" class="font-mono text-ink">Rs. 0</span>
+        </div>
+        <div class="flex justify-between items-center mb-5 text-sm text-inksoft pb-5 border-b border-line">
+          <span data-i18n="delivery_label">Delivery</span>
+          <span class="font-mono text-ink">Rs. 50</span>
+        </div>
+        <div class="flex justify-between items-center mb-6 text-lg font-medium text-ink">
+          <span data-i18n="total_label">Total</span>
+          <span id="cart-total" class="font-mono text-canopy font-bold">Rs. 50</span>
+        </div>
+
+        <!-- Delivery details (shown when cart has items) -->
+        <div id="delivery-fields" class="hidden mb-5 flex flex-col gap-3">
+          <input id="contact-name" type="text" placeholder="Your name" data-i18n-placeholder="name_ph"
+            class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-canopy transition">
+          <input id="contact-phone" type="tel" placeholder="Phone number" data-i18n-placeholder="phone_ph"
+            class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-canopy transition">
+          <input id="delivery-address" type="text" placeholder="Delivery address" data-i18n-placeholder="address_ph"
+            class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-canopy transition">
+        </div>
+
+        <div id="checkout-error" class="hidden mb-4 text-sm text-rust font-mono"></div>
+
+        <button id="checkout-btn" onclick="checkout()"
+          class="w-full font-mono text-[13px] uppercase tracking-wider font-medium text-paper bg-canopy rounded-lg px-4 py-3 hover:bg-ink transition shadow-sm" data-i18n="checkout_btn">
+          Proceed to Checkout
+        </button>
+        <p class="text-xs text-inksoft text-center mt-3 font-mono" data-i18n="free_delivery_note">Free delivery on orders above Rs. 2,000</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line bg-canopy text-paper">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <p class="font-display font-semibold text-xl">AgriGuardian <span class="opacity-80">AI</span></p>
+      <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-paper/80 font-mono">
+        <a href="index.html" class="hover:text-paper transition-colors">Home</a>
+        <a href="farmer.html" class="hover:text-paper transition-colors">Farmers Shop</a>
+        <a href="consumer.html" class="hover:text-paper transition-colors">Consumer Shop</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/custom.js"></script>
+  <script>
+    const API_BASE = 'http://localhost:3001/api';
+
+    // expose rerenderDynamic so i18n toggle can refresh
+    function rerenderDynamic() { renderCart(); }
+    document.addEventListener('DOMContentLoaded', renderCart);
+
+    function renderCart() {
+      const cartContainer = document.getElementById('cart-container');
+      const badge         = document.getElementById('nav-cart-badge');
+      const subtotalEl    = document.getElementById('cart-subtotal');
+      const totalEl       = document.getElementById('cart-total');
+      const deliveryFields = document.getElementById('delivery-fields');
+
+      let cart = JSON.parse(localStorage.getItem('agriCart')) || [];
+      badge.innerText = cart.length;
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `
+          <div class="text-center py-16 border-2 border-dashed border-line rounded-2xl">
+            <i class="fa-solid fa-basket-shopping text-5xl text-line mb-5"></i>
+            <p class="text-inksoft text-lg mb-2">${t('cart_empty_title')}</p>
+            <p class="text-sm text-inksoft/70 mb-5">${t('cart_empty_sub')}</p>
+            <div class="flex flex-wrap justify-center gap-3">
+              <a href="farmer.html" class="text-sm font-medium text-canopy border border-canopy/30 px-4 py-2 rounded-full hover:bg-canopy hover:text-paper transition">${t('nav_farmers_shop')}</a>
+              <a href="diseases.html" class="text-sm font-medium text-irrigation border border-irrigation/30 px-4 py-2 rounded-full hover:bg-irrigation hover:text-white transition">${t('scan_leaf_btn')}</a>
+            </div>
+          </div>`;
+        subtotalEl.innerText = 'Rs. 0';
+        totalEl.innerText = 'Rs. 50';
+        deliveryFields.classList.add('hidden');
+        return;
+      }
+
+      deliveryFields.classList.remove('hidden');
+      deliveryFields.classList.add('flex');
+
+      let html = '';
+      let subtotal = 0;
+
+      cart.forEach((item, index) => {
+        const qty = item.quantity || 1;
+        subtotal += item.price * qty;
+        html += `
+          <div class="rounded-xl border border-line bg-white p-4 flex items-center gap-5">
+            <img class="w-20 h-20 object-cover rounded-lg bg-paperdeep shrink-0"
+                 src="${item.image || ''}"
+                 alt="${item.name}"
+                 onerror="this.style.display='none'">
+            <div class="flex-1 min-w-0">
+              <h3 class="font-display font-medium text-ink leading-tight">${item.name}</h3>
+              <p class="font-mono text-sm font-medium text-ink mt-1">Rs. ${item.price.toLocaleString()}</p>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <div class="flex items-center gap-2 border border-line rounded-lg">
+                <button onclick="changeQty(${index}, -1)" class="w-8 h-8 flex items-center justify-center text-inksoft hover:text-rust transition font-bold text-lg">−</button>
+                <span class="font-mono text-sm w-6 text-center">${qty}</span>
+                <button onclick="changeQty(${index}, +1)" class="w-8 h-8 flex items-center justify-center text-inksoft hover:text-canopy transition font-bold text-lg">+</button>
+              </div>
+              <button onclick="removeFromCart(${index})" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-rust/10 text-rust transition" title="Remove">
+                <i class="fa-solid fa-trash-can text-sm"></i>
+              </button>
+            </div>
+          </div>`;
+      });
+
+      cartContainer.innerHTML = html;
+
+      const shipping = subtotal > 2000 ? 0 : 50;
+      subtotalEl.innerText = `Rs. ${subtotal.toLocaleString()}`;
+      totalEl.innerText = `Rs. ${(subtotal + shipping).toLocaleString()}`;
+      if (shipping === 0) {
+        document.querySelector('.flex.justify-between.items-center.mb-5 .font-mono').innerText = 'Free';
+      }
+    }
+
+    function changeQty(index, delta) {
+      let cart = JSON.parse(localStorage.getItem('agriCart')) || [];
+      cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + delta);
+      localStorage.setItem('agriCart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem('agriCart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('agriCart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    async function checkout() {
+      let cart = JSON.parse(localStorage.getItem('agriCart')) || [];
+      if (cart.length === 0) {
+        document.getElementById('checkout-error').textContent = 'Your cart is empty!';
+        document.getElementById('checkout-error').classList.remove('hidden');
+        return;
+      }
+
+      const btn = document.getElementById('checkout-btn');
+      const errEl = document.getElementById('checkout-error');
+      errEl.classList.add('hidden');
+      btn.textContent = 'Placing Order...';
+      btn.disabled = true;
+
+      try {
+        const payload = {
+          items: cart.map(item => ({
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity || 1,
+            image: item.image,
+          })),
+          contact_name: document.getElementById('contact-name').value,
+          contact_phone: document.getElementById('contact-phone').value,
+          delivery_address: document.getElementById('delivery-address').value,
+        };
+
+        const resp = await fetch(`${API_BASE}/orders`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await resp.json();
+        if (!resp.ok) throw new Error(result.error || 'Order failed');
+
+        // Success
+        localStorage.removeItem('agriCart');
+        document.getElementById('cart-main').classList.add('hidden');
+        const successBanner = document.getElementById('order-success');
+        successBanner.classList.remove('hidden');
+        document.getElementById('order-id-text').textContent = `Order ID: ${result.order.id.split('-')[0].toUpperCase()}`;
+        document.getElementById('nav-cart-badge').innerText = '0';
+        successBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      } catch (err) {
+        errEl.textContent = `Checkout failed: ${err.message}. Make sure the backend is running on port 3001.`;
+        errEl.classList.remove('hidden');
+        btn.textContent = 'Proceed to Checkout';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

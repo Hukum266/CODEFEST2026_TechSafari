@@ -1,0 +1,158 @@
+[
+  {
+    "created_at": "2026-08-01T12:04:32.516Z",
+    "id": 1,
+    "name": "Powdery Mildew",
+    "slug": "powdery-mildew",
+    "description": "A fungal disease causing white, powdery fungal growth on leaf surfaces.",
+    "cause": "Fungus Erysiphe spp. Thrives in warm, dry weather with high humidity.",
+    "symptoms": "White or grey powdery spots on leaves and stems. Affected leaves curl, yellow, and drop.",
+    "severity_map": {
+      "early": "Small isolated white patches. Easily treatable.",
+      "moderate": "Multiple leaves affected. Treatment required within 48 hours.",
+      "advanced": "Widespread white coating. Yield loss likely. Aggressive treatment needed."
+    },
+    "irrigation_advice": "REDUCE irrigation frequency. Water in the morning only. Avoid overhead watering. High humidity promotes spread.",
+    "product_ids": [
+      1,
+      4,
+      2
+    ]
+  },
+  {
+    "created_at": "2026-08-01T12:04:32.516Z",
+    "id": 2,
+    "name": "Early Blight",
+    "slug": "early-blight",
+    "description": "Fungal disease causing dark, target-like spots with yellow halos on lower leaves first.",
+    "cause": "Fungus Alternaria solani. Warm temperatures (24–29°C) and wet conditions.",
+    "symptoms": "Dark brown circular spots with concentric rings resembling a target. Yellow halo around spots.",
+    "severity_map": {
+      "early": "Small dark spots on lower leaves only. Remove affected leaves and apply fungicide.",
+      "moderate": "Spots on multiple leaf layers. Defoliation starting. Apply systemic fungicide.",
+      "advanced": "Severe defoliation, stem lesions. Yield heavily compromised."
+    },
+    "irrigation_advice": "Use drip irrigation to keep foliage dry. Water in early morning. Ensure good air circulation.",
+    "product_ids": [
+      5,
+      1,
+      6
+    ]
+  },
+  {
+    "created_at": "2026-08-01T12:04:32.516Z",
+    "id": 3,
+    "name": "Late Blight",
+    "slug": "late-blight",
+    "description": "Devastating water mold that can destroy crops within days.",
+    "cause": "Oomycete Phytophthora infestans. Cool, moist conditions (10–25°C with rain or heavy dew).",
+    "symptoms": "Water-soaked, dark green to brown lesions that expand rapidly. White mold on underside in humid conditions.",
+    "severity_map": {
+      "early": "Small water-soaked spots. Act immediately — spreads within 24–48 hours.",
+      "moderate": "Large brown lesions. Remove and destroy infected material.",
+      "advanced": "Entire plants collapsing. Immediate action essential."
+    },
+    "irrigation_advice": "STOP overhead irrigation immediately. Switch to drip/furrow irrigation. Improve drainage. Do not water in cloudy/cool weather.",
+    "product_ids": [
+      1,
+      5
+    ]
+  },
+  {
+    "created_at": "2026-08-01T12:04:32.516Z",
+    "id": 4,
+    "name": "Leaf Rust",
+    "slug": "leaf-rust",
+    "description": "Fungal disease causing orange-brown rust pustules on leaf undersides.",
+    "cause": "Various Puccinia species. Wind-borne spores. Moderate temperatures and dew.",
+    "symptoms": "Orange, brown, or yellow pustules on lower leaf surfaces. Upper surface shows yellow flecks.",
+    "severity_map": {
+      "early": "Scattered pustules. Fungicide application effective.",
+      "moderate": "Pustules on many leaves. Increase spray frequency.",
+      "advanced": "Heavy pustulation, leaves dying. Significant yield loss."
+    },
+    "irrigation_advice": "Maintain moderate irrigation. Avoid leaf wetness — use drip. Water in morning so leaves dry quickly.",
+    "product_ids": [
+      4,
+      5
+    ]
+  },
+  {
+    "created_at": "2026-08-01T12:04:32.516Z",
+    "id": 5,
+    "name": "Bacterial Leaf Spot",
+    "slug": "bacterial-leaf-spot",
+    "description": "Water-soaked lesions that turn dark brown, often with a yellow halo.",
+    "cause": "Various Xanthomonas and Pseudomonas species. Spreads via rain splash and infected tools.",
+    "symptoms": "Water-soaked spots that become brown with yellow margins. Lesions may merge.",
+    "severity_map": {
+      "early": "Small isolated spots. Remove affected leaves. Apply copper spray.",
+      "moderate": "Multiple spots per leaf. Systemic copper treatment needed.",
+      "advanced": "Large necrotic areas. Significant defoliation."
+    },
+    "irrigation_advice": "Avoid overhead irrigation — spreads bacterial infection. Use drip. Do not work in field when plants are wet.",
+    "product_ids": [
+      1,
+      2
+    ]
+  },
+  {
+    "created_at": "2026-08-01T12:04:32.516Z",
+    "id": 6,
+    "name": "Root Rot",
+    "slug": "root-rot",
+    "description": "Soil-borne disease causing root decay. Often caused by overwatering.",
+    "cause": "Pythium, Phytophthora, Fusarium, or Rhizoctonia. Triggered by waterlogged soils.",
+    "symptoms": "Yellowing and wilting despite adequate water. Brown, mushy roots. Plant stunting.",
+    "severity_map": {
+      "early": "Some yellowing, roots slightly discoloured. Improve drainage immediately.",
+      "moderate": "Significant wilting, brown roots visible. Apply biological fungicide.",
+      "advanced": "Plants collapsing. Root system largely destroyed."
+    },
+    "irrigation_advice": "SIGNIFICANTLY reduce irrigation. Allow soil to dry between waterings. Improve drainage. Never water in evenings.",
+    "product_ids": [
+      6,
+      7,
+      8
+    ]
+  },
+  {
+    "created_at": "2026-08-01T12:04:32.516Z",
+    "id": 7,
+    "name": "Nitrogen Deficiency",
+    "slug": "nitrogen-deficiency",
+    "description": "Nutrient deficiency causing uniform yellowing of older leaves first.",
+    "cause": "Insufficient nitrogen in soil. Worsened by waterlogging or sandy soils.",
+    "symptoms": "Pale green to yellow colour starting from older/lower leaves. Leaves turn fully yellow and drop.",
+    "severity_map": {
+      "early": "Slight yellowing on lower leaves. Apply nitrogen fertilizer.",
+      "moderate": "Widespread yellowing. Urgent fertilizer application needed.",
+      "advanced": "Stunted growth, severe yellowing, reduced flowering."
+    },
+    "irrigation_advice": "Moderate, consistent irrigation improves nitrogen uptake. Avoid waterlogging. Fertigation is highly effective.",
+    "product_ids": [
+      9,
+      10,
+      8
+    ]
+  },
+  {
+    "created_at": "2026-08-01T12:04:32.516Z",
+    "id": 8,
+    "name": "Healthy Plant",
+    "slug": "healthy",
+    "description": "No disease detected. The plant appears healthy.",
+    "cause": "N/A",
+    "symptoms": "Normal green leaf colour, no spots, no powdery growth, no yellowing or wilting.",
+    "severity_map": {
+      "early": "Healthy — no action required.",
+      "moderate": "Healthy — continue current practices.",
+      "advanced": "Healthy — monitor regularly."
+    },
+    "irrigation_advice": "Continue current irrigation schedule. Monitor soil moisture regularly.",
+    "product_ids": [
+      7,
+      2
+    ]
+  }
+]

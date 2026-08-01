@@ -1,0 +1,165 @@
+[
+  {
+    "id": 1,
+    "created_at": "2026-08-01T12:04:32.517Z",
+    "farmer_name": "Ram Bhandari",
+    "farm_name": "Bhandari Farm",
+    "crop_name": "Tomatoes",
+    "price": 120,
+    "unit": "kg",
+    "quantity": 500,
+    "description": "Fresh, vine-ripened tomatoes. Zero fungicide treatments this season. Grown using AgriGuardian-optimised irrigation.",
+    "image": "images/tomatoes1.jpg",
+    "certifications": [
+      "AgriGuardian Verified",
+      "Chemical-Free"
+    ],
+    "disease_free": 1,
+    "irrigation_optimized": 1,
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "created_at": "2026-08-01T12:04:32.517Z",
+    "farmer_name": "Sita Sharma",
+    "farm_name": "Greenfield Farm",
+    "crop_name": "Spinach",
+    "price": 60,
+    "unit": "bundle",
+    "quantity": 200,
+    "description": "Freshly harvested spinach from organic soil. Rich in iron. No pesticide use.",
+    "image": "images/spinach1.jpg",
+    "certifications": [
+      "Organic",
+      "AgriGuardian Verified"
+    ],
+    "disease_free": 1,
+    "irrigation_optimized": 0,
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "created_at": "2026-08-01T12:04:32.518Z",
+    "farmer_name": "Hari Rai",
+    "farm_name": "Rai Family Farm",
+    "crop_name": "Sweet Corn",
+    "price": 90,
+    "unit": "kg",
+    "quantity": 800,
+    "description": "Non-GMO sweet corn. Drip-irrigated for optimal sweetness. Water usage reduced 22% vs baseline.",
+    "image": "images/sweet_corn.jpg",
+    "certifications": [
+      "Non-GMO",
+      "Water-Smart"
+    ],
+    "disease_free": 1,
+    "irrigation_optimized": 1,
+    "status": "active"
+  },
+  {
+    "id": 4,
+    "created_at": "2026-08-01T12:04:32.518Z",
+    "farmer_name": "Mohan Thapa",
+    "farm_name": "Ghorahi Organic Farm",
+    "crop_name": "Paddy Rice",
+    "price": 40,
+    "unit": "kg",
+    "quantity": 2000,
+    "description": "Traditional Ruway paddy variety. Grown in organic soil without synthetic chemicals.",
+    "image": "images/rice.jpg",
+    "certifications": [
+      "Organic"
+    ],
+    "disease_free": 1,
+    "irrigation_optimized": 0,
+    "status": "active"
+  },
+  {
+    "id": 5,
+    "created_at": "2026-08-01T12:04:32.518Z",
+    "farmer_name": "Kamala Oli",
+    "farm_name": "Dang Fresh Agro Farm",
+    "crop_name": "Potato",
+    "price": 60,
+    "unit": "kg",
+    "quantity": 3000,
+    "description": "Hill-grown potato varieties. Disease-free certified by AgriGuardian AI scan.",
+    "image": "images/potato.webp",
+    "certifications": [
+      "AgriGuardian Verified",
+      "Disease-Free Certified"
+    ],
+    "disease_free": 1,
+    "irrigation_optimized": 1,
+    "status": "active"
+  },
+  {
+    "id": 6,
+    "created_at": "2026-08-01T12:04:32.518Z",
+    "farmer_name": "Bishnu Karki",
+    "farm_name": "Green Harvest Nepal",
+    "crop_name": "Onion",
+    "price": 45,
+    "unit": "kg",
+    "quantity": 1500,
+    "description": "Dry onions, fully cured. Long shelf life. Grown in well-drained soil with managed irrigation.",
+    "image": "images/onion.jpg",
+    "certifications": [
+      "AgriGuardian Verified"
+    ],
+    "disease_free": 1,
+    "irrigation_optimized": 0,
+    "status": "active"
+  },
+  {
+    "id": 7,
+    "created_at": "2026-08-01T12:04:32.518Z",
+    "farmer_name": "Prem Gurung",
+    "farm_name": "Shree Krishna Agriculture Farm",
+    "crop_name": "Cucumber",
+    "price": 70,
+    "unit": "kg",
+    "quantity": 400,
+    "description": "Crisp, fresh cucumbers. Trellis-grown for uniform shape. Minimum 3 AI health scans per week.",
+    "image": "images/cucumber.webp",
+    "certifications": [
+      "AgriGuardian Verified",
+      "Trellis-Grown"
+    ],
+    "disease_free": 1,
+    "irrigation_optimized": 1,
+    "status": "active"
+  },
+  {
+    "id": 8,
+    "created_at": "2026-08-01T12:21:12.274Z",
+    "farmer_name": "Hukum Roka",
+    "farm_name": "Hukum Polti Farm",
+    "crop_name": "Brinjal",
+    "price": 70,
+    "unit": "kg",
+    "quantity": 20,
+    "description": "Organic Fertilizer",
+    "image": "",
+    "certifications": [],
+    "disease_free": 1,
+    "irrigation_optimized": 1,
+    "status": "active"
+  },
+  {
+    "id": 9,
+    "created_at": "2026-08-01T12:51:29.552Z",
+    "farmer_name": "Deep BK",
+    "farm_name": "Deep Agro Farm",
+    "crop_name": "Beans",
+    "price": 120,
+    "unit": "kg",
+    "quantity": 25,
+    "description": "Safely grown in organic fertlizers",
+    "image": "",
+    "certifications": [],
+    "disease_free": 1,
+    "irrigation_optimized": 1,
+    "status": "active"
+  }
+]

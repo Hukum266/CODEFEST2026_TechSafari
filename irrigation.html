@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriGuardian AI — Smart Irrigation Advisor</title>
+  <link rel="shortcut icon" href="images/head.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/i18n.js" defer></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F3F5EC', paperdeep: '#E7EBDA', ink: '#1C2618', inksoft: '#4A5741',
+            canopy: '#2F5233', canopylight: '#4F7A52', soil: '#8B5E34',
+            irrigation: '#2F6690', amber: '#B8710F', rust: '#A8452F', line: '#D4DAC4',
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-paper text-ink font-body antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-display font-semibold text-lg tracking-tight">
+        <img class="h-[40px]" src="images/head.png" alt="logo">
+        AgriGuardian <span class="text-canopy">AI</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-inksoft">
+        <a href="index.html" class="hover:text-ink transition-colors" data-i18n="nav_home">Home</a>
+        <a href="farmer.html" class="hover:text-ink transition-colors" data-i18n="nav_farmers_shop">Farmers Shop</a>
+        <a href="consumer.html" class="hover:text-ink transition-colors" data-i18n="nav_consumer_shop">Consumer Shop</a>
+        <a href="diseases.html" class="hover:text-ink transition-colors" data-i18n="nav_disease">Disease Detection</a>
+        <a href="irrigation.html" class="text-irrigation font-semibold" data-i18n="nav_irrigation">Irrigation</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <span class="dark-toggle-slot"></span>
+        <span class="lang-toggle-slot"></span>
+        <a href="cart.html" class="relative text-inksoft hover:text-canopy transition-colors" title="View Cart">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span id="nav-cart-badge" class="absolute -top-1.5 -right-2 bg-amber text-paper text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border border-paper">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-6xl mx-auto px-6 sm:px-8 pt-16 pb-10">
+    <p class="font-mono text-xs tracking-[0.18em] text-irrigation uppercase mb-4" data-i18n="irr_tag">AI-Powered · Weather-Aware · Disease-Integrated</p>
+    <h1 class="font-display font-semibold text-4xl sm:text-5xl tracking-tight text-ink max-w-2xl">
+      <span data-i18n="irr_h1">Smart Irrigation</span> <span class="text-irrigation" data-i18n="irr_h1_accent">Advisor</span>
+    </h1>
+    <p class="mt-4 text-inksoft max-w-2xl leading-relaxed" data-i18n="irr_desc">
+      Enter your field conditions and get an evidence-based irrigation recommendation. The advisor factors in weather forecasts, soil moisture, crop type, growth stage, and any detected disease — then tells you exactly when and how much to water.
+    </p>
+  </section>
+
+  <!-- MAIN GRID: form + weather -->
+  <section class="max-w-6xl mx-auto px-6 sm:px-8 pb-20 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
+
+    <!-- LEFT: Input form -->
+    <div class="rounded-2xl border border-line bg-white p-8 shadow-sm">
+      <h2 class="font-display font-semibold text-xl text-ink mb-6" data-i18n="irr_form_title">Field Parameters</h2>
+      <form id="irrigation-form" class="grid gap-5" onsubmit="getIrrigationAdvice(event)">
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="irr_crop_type">Crop Type</label>
+            <select name="crop_type" class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+              <option value="tomato">Tomato</option>
+              <option value="potato">Potato</option>
+              <option value="rice">Rice</option>
+              <option value="wheat">Wheat</option>
+              <option value="corn">Corn / Maize</option>
+              <option value="onion">Onion</option>
+              <option value="cucumber">Cucumber</option>
+              <option value="spinach">Spinach</option>
+              <option value="default">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="irr_growth_stage">Growth Stage</label>
+            <select name="growth_stage" class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+              <option value="seedling" data-i18n="stage_seedling">Seedling</option>
+              <option value="vegetative" selected data-i18n="stage_vegetative">Vegetative</option>
+              <option value="flowering" data-i18n="stage_flowering">Flowering</option>
+              <option value="fruiting" data-i18n="stage_fruiting">Fruiting / Grain fill</option>
+              <option value="ripening" data-i18n="stage_ripening">Ripening / Maturity</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2">
+            <span data-i18n="irr_soil_moisture">Soil Moisture</span>: <span id="moisture-val" class="text-irrigation">40%</span>
+          </label>
+          <input type="range" name="soil_moisture_percent" min="0" max="100" value="40"
+            class="w-full accent-irrigation"
+            oninput="document.getElementById('moisture-val').textContent = this.value + '%'">
+          <div class="flex justify-between font-mono text-[10px] text-inksoft/60 mt-1">
+            <span>Bone dry</span><span>Ideal</span><span>Waterlogged</span>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="irr_soil_type">Soil Type</label>
+            <select name="soil_type" class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+              <option value="loamy" selected data-i18n="soil_loamy">Loamy</option>
+              <option value="sandy" data-i18n="soil_sandy">Sandy</option>
+              <option value="clay" data-i18n="soil_clay">Clay</option>
+              <option value="silt" data-i18n="soil_silt">Silt</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="irr_area">Field Area (Bigha)</label>
+            <input type="number" name="field_area_bigha" min="0.1" step="0.1" value="1"
+              class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="irr_temp">Temperature (°C)</label>
+            <input type="number" name="temperature_c" min="-10" max="55" value="28"
+              class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+          </div>
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2">
+            <span data-i18n="irr_humidity">Humidity</span>: <span id="humidity-val" class="text-irrigation">60%</span>
+          </label>
+            <input type="range" name="humidity_percent" min="0" max="100" value="60"
+              class="w-full accent-irrigation mt-1.5"
+              oninput="document.getElementById('humidity-val').textContent = this.value + '%'">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="irr_rain">Rain Forecast (mm/24h)</label>
+            <input type="number" name="rain_forecast_mm" min="0" max="300" value="0"
+              class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+          </div>
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="irr_last_irr">Last Irrigated (days ago)</label>
+            <input type="number" name="last_irrigated_days_ago" min="0" max="30" value="2"
+              class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs uppercase tracking-wider text-inksoft mb-2" data-i18n="irr_disease">Detected Disease (optional)</label>
+          <select name="detected_disease" id="disease-select"
+            class="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+            <option value="" data-i18n="disease_none">None / Not scanned yet</option>
+            <option value="healthy" data-i18n="disease_healthy">Healthy Plant</option>
+            <option value="powdery-mildew">Powdery Mildew</option>
+            <option value="early-blight">Early Blight</option>
+            <option value="late-blight">Late Blight</option>
+            <option value="leaf-rust">Leaf Rust</option>
+            <option value="bacterial-leaf-spot">Bacterial Leaf Spot</option>
+            <option value="root-rot">Root Rot</option>
+            <option value="nitrogen-deficiency">Nitrogen Deficiency</option>
+          </select>
+          <p class="text-xs text-inksoft/60 mt-1.5 font-mono" data-i18n="irr_disease_hint">Run a <a href="diseases.html" class="text-canopy underline">disease scan</a> first for auto-fill.</p>
+        </div>
+
+        <!-- Weather auto-fill -->
+        <div class="rounded-xl border border-irrigation/30 bg-irrigation/5 px-4 py-3">
+          <p class="text-xs font-mono text-irrigation uppercase tracking-wider mb-2"><i class="fa-solid fa-cloud-sun mr-1"></i> <span data-i18n="irr_weather_label">Auto-fill from Weather</span></p>
+          <div class="flex gap-2">
+            <input id="city-input" type="text" placeholder="City name (e.g. Kathmandu)"
+              data-i18n-placeholder="irr_city_ph"
+              class="flex-1 border border-line rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:border-irrigation transition">
+            <button type="button" onclick="fetchWeatherAndFill()" id="weather-btn"
+              class="font-mono text-xs uppercase px-4 py-2 bg-irrigation text-white rounded-lg hover:bg-ink transition shrink-0" data-i18n="irr_fetch_btn">
+              Fetch
+            </button>
+          </div>
+          <p id="weather-status" class="text-xs text-inksoft/70 mt-1.5 font-mono hidden"></p>
+        </div>
+
+        <button type="submit" id="calc-btn"
+          class="w-full font-mono text-sm uppercase tracking-wider font-medium text-paper bg-irrigation rounded-xl py-3.5 hover:bg-ink transition shadow-sm">
+          <i class="fa-solid fa-droplet mr-2"></i> <span data-i18n="irr_calc_btn">Calculate Irrigation</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- RIGHT: Results + weather -->
+    <div class="flex flex-col gap-6">
+
+      <!-- Result card (hidden until calculated) -->
+      <div id="result-card" class="hidden rounded-2xl border-2 border-irrigation/40 bg-white p-8 shadow-sm">
+        <div class="flex items-start justify-between gap-4 mb-6">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-wider text-irrigation mb-1" data-i18n="irr_result_label">Recommendation</p>
+            <h3 id="result-action" class="font-display font-semibold text-2xl text-ink leading-tight">—</h3>
+          </div>
+          <div id="result-icon" class="w-14 h-14 rounded-full flex items-center justify-center text-2xl shrink-0 bg-irrigation/10">
+            <i class="fa-solid fa-droplet text-irrigation"></i>
+          </div>
+        </div>
+
+        <!-- Key metrics -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+          <div class="bg-paperdeep rounded-xl px-4 py-3">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-inksoft mb-1" data-i18n="irr_volume_label">Recommended Volume</p>
+            <p id="result-volume" class="font-display font-semibold text-xl text-irrigation">—</p>
+          </div>
+          <div class="bg-paperdeep rounded-xl px-4 py-3">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-inksoft mb-1" data-i18n="irr_timing_label">Irrigate In</p>
+            <p id="result-timing" class="font-display font-semibold text-xl text-ink">—</p>
+          </div>
+          <div class="bg-paperdeep rounded-xl px-4 py-3">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-inksoft mb-1" data-i18n="irr_method_label">Method</p>
+            <p id="result-method" class="font-mono text-sm font-medium text-ink">—</p>
+          </div>
+          <div class="bg-paperdeep rounded-xl px-4 py-3">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-inksoft mb-1" data-i18n="irr_risk_label">Water Risk</p>
+            <p id="result-risk" class="font-mono text-sm font-medium text-ink">—</p>
+          </div>
+        </div>
+
+        <!-- Water savings -->
+        <div class="rounded-xl border border-canopy/30 bg-canopy/5 px-4 py-3 mb-4">
+          <p class="font-mono text-xs text-canopy uppercase tracking-wider mb-2"><i class="fa-solid fa-leaf mr-1"></i> <span data-i18n="irr_savings_label">Water Savings</span></p>
+          <div class="flex items-baseline gap-2">
+            <p id="result-savings-pct" class="font-display font-bold text-3xl text-canopy">—%</p>
+            <p class="text-sm text-inksoft" data-i18n="irr_savings_vs">vs. habit-based irrigation</p>
+          </div>
+          <p id="result-savings-litres" class="font-mono text-xs text-inksoft mt-1">— litres saved per cycle</p>
+        </div>
+
+        <!-- Disease modifier info -->
+        <div id="disease-modifier-card" class="hidden rounded-xl border border-amber/30 bg-amber/5 px-4 py-3">
+          <p class="font-mono text-xs text-amber uppercase tracking-wider mb-1"><i class="fa-solid fa-circle-exclamation mr-1"></i> <span data-i18n="irr_disease_mod_label">Disease Modifier Applied</span></p>
+          <p id="disease-modifier-text" class="text-sm text-ink leading-relaxed">—</p>
+        </div>
+      </div>
+
+      <!-- Weather card -->
+      <div id="weather-card" class="hidden rounded-2xl border border-line bg-white p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-display font-medium text-ink" data-i18n="irr_weather_title">Weather Forecast</h3>
+          <p id="weather-location" class="font-mono text-xs text-inksoft">—</p>
+        </div>
+        <div id="weather-days" class="flex flex-col gap-2"></div>
+        <div id="weather-alerts" class="mt-4 flex flex-col gap-2"></div>
+      </div>
+
+      <!-- Placeholder before calculation -->
+      <div id="result-placeholder" class="rounded-2xl border-2 border-dashed border-line p-10 text-center">
+        <div class="w-14 h-14 rounded-full bg-irrigation/10 flex items-center justify-center mx-auto mb-4">
+          <i class="fa-solid fa-droplet text-2xl text-irrigation"></i>
+        </div>
+        <p class="font-display font-medium text-ink" data-i18n="irr_placeholder_title">Fill in your field details</p>
+        <p class="text-sm text-inksoft mt-2" data-i18n="irr_placeholder_sub">Your personalised irrigation recommendation will appear here.</p>
+        <p class="text-xs text-inksoft/60 mt-3 font-mono" data-i18n="irr_placeholder_tip">Pro tip: Run a disease scan first to get disease-aware irrigation advice.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line bg-canopy text-paper">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div>
+        <p class="font-display font-semibold text-xl">AgriGuardian <span class="opacity-80">AI</span></p>
+        <p class="text-sm text-paper/75 mt-2 max-w-sm">Irrigate on evidence, not habit.</p>
+      </div>
+      <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm text-paper/80 font-mono">
+        <a href="index.html" class="hover:text-paper transition-colors">Home</a>
+        <a href="diseases.html" class="hover:text-paper transition-colors">Disease Detection</a>
+        <a href="farmer.html" class="hover:text-paper transition-colors">Farmers Shop</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/custom.js"></script>
+  <script>
+    const API_BASE = 'http://localhost:3001/api';
+
+    // Auto-fill disease from URL param (set by diseases.html)
+    const urlParams = new URLSearchParams(window.location.search);
+    const diseaseParam = urlParams.get('disease');
+    if (diseaseParam) {
+      const sel = document.getElementById('disease-select');
+      if (sel) {
+        const opt = sel.querySelector(`option[value="${diseaseParam}"]`);
+        if (opt) sel.value = diseaseParam;
+      }
+    }
+
+    async function getIrrigationAdvice(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('calc-btn');
+      const resultCard = document.getElementById('result-card');
+      const placeholder = document.getElementById('result-placeholder');
+
+      btn.textContent = 'Calculating...';
+      btn.disabled = true;
+
+      try {
+        const fd = new FormData(form);
+        const payload = {
+          crop_type:              fd.get('crop_type'),
+          growth_stage:           fd.get('growth_stage'),
+          soil_moisture_percent:  parseFloat(fd.get('soil_moisture_percent')),
+          soil_type:              fd.get('soil_type'),
+          temperature_c:          parseFloat(fd.get('temperature_c')),
+          humidity_percent:       parseFloat(fd.get('humidity_percent')),
+          rain_forecast_mm:       parseFloat(fd.get('rain_forecast_mm')),
+          field_area_bigha:       parseFloat(fd.get('field_area_bigha')),
+          last_irrigated_days_ago: parseFloat(fd.get('last_irrigated_days_ago')),
+          detected_disease:       fd.get('detected_disease') || null,
+        };
+
+        const resp = await fetch(`${API_BASE}/irrigation`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error);
+
+        renderIrrigationResult(data);
+        placeholder.classList.add('hidden');
+        resultCard.classList.remove('hidden');
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      } catch (err) {
+        alert(`Error: ${err.message}`);
+      } finally {
+        btn.innerHTML = '<i class="fa-solid fa-droplet mr-2"></i> Calculate Irrigation';
+        btn.disabled = false;
+      }
+    }
+
+    function renderIrrigationResult(data) {
+      const rec = data.recommendation;
+      const calc = data.calculations;
+      const sav = data.savings;
+
+      document.getElementById('result-action').textContent = rec.action_message;
+
+      // Volume
+      const vol = rec.recommended_litres;
+      document.getElementById('result-volume').textContent =
+        rec.method === 'skip' ? 'Skip — no irrigation' :
+        vol > 1000 ? `${(vol / 1000).toFixed(1)} kL` : `${vol.toLocaleString()} L`;
+
+      // Timing
+      document.getElementById('result-timing').textContent =
+        rec.irrigate_in_hours === 0 ? 'Now' : `In ${rec.irrigate_in_hours}h`;
+
+      // Method labels
+      const methods = {
+        drip: 'Drip Irrigation',
+        drip_only: 'Drip Only (no overhead)',
+        skip: 'Skip this cycle',
+        sprinkler: 'Sprinkler',
+      };
+      document.getElementById('result-method').textContent = methods[rec.method] || rec.method;
+
+      // Water risk
+      const riskLabels = {
+        low: 'Low ✓',
+        moderate: 'Moderate',
+        high_overwatering: 'High — Overwatering!',
+        high_underwatering: 'High — Underwatering!',
+      };
+      const riskEl = document.getElementById('result-risk');
+      riskEl.textContent = riskLabels[calc.water_risk] || calc.water_risk;
+      riskEl.className = `font-mono text-sm font-medium ${calc.water_risk.startsWith('high') ? 'text-rust' : calc.water_risk === 'moderate' ? 'text-amber' : 'text-canopy'}`;
+
+      // Savings
+      document.getElementById('result-savings-pct').textContent = `${sav.savings_percent}%`;
+      document.getElementById('result-savings-litres').textContent =
+        `${sav.savings_litres.toLocaleString()} litres saved per cycle vs. habit-based`;
+
+      // Disease modifier
+      if (rec.disease_modifier && rec.disease_modifier.multiplier !== 1.0 && rec.disease_modifier.reason) {
+        document.getElementById('disease-modifier-text').textContent = rec.disease_modifier.reason;
+        document.getElementById('disease-modifier-card').classList.remove('hidden');
+      } else {
+        document.getElementById('disease-modifier-card').classList.add('hidden');
+      }
+
+      // Icon based on action
+      const iconEl = document.getElementById('result-icon');
+      if (rec.method === 'skip') {
+        iconEl.innerHTML = '<i class="fa-solid fa-droplet-slash text-inksoft"></i>';
+        iconEl.className = 'w-14 h-14 rounded-full flex items-center justify-center text-2xl shrink-0 bg-paperdeep';
+      } else if (rec.should_irrigate) {
+        iconEl.innerHTML = '<i class="fa-solid fa-droplet text-irrigation"></i>';
+        iconEl.className = 'w-14 h-14 rounded-full flex items-center justify-center text-2xl shrink-0 bg-irrigation/15';
+      } else {
+        iconEl.innerHTML = '<i class="fa-solid fa-clock text-amber"></i>';
+        iconEl.className = 'w-14 h-14 rounded-full flex items-center justify-center text-2xl shrink-0 bg-amber/10';
+      }
+    }
+
+    async function fetchWeatherAndFill() {
+      const city = document.getElementById('city-input').value.trim();
+      if (!city) { alert('Enter a city name first.'); return; }
+
+      const btn = document.getElementById('weather-btn');
+      const status = document.getElementById('weather-status');
+      btn.textContent = 'Fetching...';
+      btn.disabled = true;
+      status.textContent = 'Fetching weather data...';
+      status.classList.remove('hidden');
+
+      try {
+        const resp = await fetch(`${API_BASE}/weather/${encodeURIComponent(city)}`);
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error);
+
+        const form = document.getElementById('irrigation-form');
+        const today = data.forecast?.[0];
+
+        if (today) {
+          form.temperature_c.value = Math.round((today.temp_max + today.temp_min) / 2);
+          form.rain_forecast_mm.value = today.precipitation_mm || 0;
+        }
+        if (data.humidity_avg_today != null) {
+          form.humidity_percent.value = data.humidity_avg_today;
+          document.getElementById('humidity-val').textContent = data.humidity_avg_today + '%';
+        }
+        if (data.soil_moisture_today != null) {
+          form.soil_moisture_percent.value = data.soil_moisture_today;
+          document.getElementById('moisture-val').textContent = data.soil_moisture_today + '%';
+        }
+
+        // Show weather card
+        renderWeatherCard(data);
+        status.textContent = `✓ Weather loaded for ${data.location.city}`;
+
+      } catch (err) {
+        status.textContent = `Error: ${err.message}`;
+      } finally {
+        btn.textContent = 'Fetch';
+        btn.disabled = false;
+      }
+    }
+
+    function renderWeatherCard(data) {
+      const card = document.getElementById('weather-card');
+      card.classList.remove('hidden');
+      document.getElementById('weather-location').textContent = data.location.city;
+
+      const daysEl = document.getElementById('weather-days');
+      daysEl.innerHTML = (data.forecast || []).slice(0, 5).map(d => `
+        <div class="flex items-center justify-between text-sm py-2 border-b border-line last:border-0">
+          <span class="font-mono text-xs text-inksoft w-20">${new Date(d.date).toLocaleDateString('en-NP', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+          <span class="text-ink">${d.condition}</span>
+          <span class="font-mono text-xs text-inksoft">${d.precipitation_mm || 0}mm</span>
+          <span class="font-mono text-xs text-ink">${Math.round(d.temp_min)}–${Math.round(d.temp_max)}°C</span>
+        </div>
+      `).join('');
+
+      const alertsEl = document.getElementById('weather-alerts');
+      const alerts = data.irrigation_advisory?.alerts || [];
+      alertsEl.innerHTML = alerts.map(a => `
+        <div class="rounded-lg px-3 py-2 text-xs font-mono ${a.level === 'pause' ? 'bg-irrigation/10 text-irrigation' : a.level === 'warning' ? 'bg-amber/10 text-amber' : 'bg-canopy/10 text-canopy'}">
+          ${a.message}
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
