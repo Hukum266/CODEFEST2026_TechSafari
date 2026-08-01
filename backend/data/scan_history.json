@@ -385,5 +385,41 @@
     "severity": "moderate",
     "image_name": "download (1).jpg",
     "slug": "powdery-mildew"
+  },
+  {
+    "id": 44,
+    "created_at": "2026-08-01T17:05:21.038Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 45,
+    "created_at": "2026-08-01T17:06:49.894Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 46,
+    "created_at": "2026-08-01T17:09:59.852Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
+  },
+  {
+    "id": 47,
+    "created_at": "2026-08-01T17:14:36.275Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download (3).jpg",
+    "slug": "powdery-mildew"
   }
 ]
