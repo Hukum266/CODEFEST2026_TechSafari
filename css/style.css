@@ -1,63 +1,63 @@
- html {
-     scroll-behavior: smooth;
- }
+html {
+      scroll-behavior: smooth;
+    }
 
- body {
-     font-feature-settings: "ss01";
- }
+    body {
+      font-feature-settings: "ss01";
+    }
 
- .scan-line {
-     animation: scan 3.6s ease-in-out infinite;
- }
+    .scan-line {
+      animation: scan 3.6s ease-in-out infinite;
+    }
 
- @keyframes scan {
-     0% {
-         transform: translateY(0);
-     }
+    @keyframes scan {
+      0% {
+        transform: translateY(0);
+      }
 
-     50% {
-         transform: translateY(420px);
-     }
+      50% {
+        transform: translateY(420px);
+      }
 
-     100% {
-         transform: translateY(0);
-     }
- }
+      100% {
+        transform: translateY(0);
+      }
+    }
 
- .pulse-dot {
-     animation: pulseDot 2.2s ease-in-out infinite;
- }
+    .pulse-dot {
+      animation: pulseDot 2.2s ease-in-out infinite;
+    }
 
- @keyframes pulseDot {
+    @keyframes pulseDot {
 
-     0%,
-     100% {
-         opacity: 1;
-     }
+      0%,
+      100% {
+        opacity: 1;
+      }
 
-     50% {
-         opacity: 0.35;
-     }
- }
+      50% {
+        opacity: 0.35;
+      }
+    }
 
- @media (prefers-reduced-motion: reduce) {
+    @media (prefers-reduced-motion: reduce) {
 
-     .scan-line,
-     .pulse-dot {
-         animation: none !important;
-     }
+      .scan-line,
+      .pulse-dot {
+        animation: none !important;
+      }
 
-     html {
-         scroll-behavior: auto;
-     }
- }
+      html {
+        scroll-behavior: auto;
+      }
+    }
 
- .grain {
-     background-image: radial-gradient(currentColor 0.6px, transparent 0.6px);
-     background-size: 14px 14px;
- }
+    .grain {
+      background-image: radial-gradient(currentColor 0.6px, transparent 0.6px);
+      background-size: 14px 14px;
+    }
 
- :focus-visible {
-     outline: 2px solid #2F5233;
-     outline-offset: 2px;
- }
+    :focus-visible {
+      outline: 2px solid #2F5233;
+      outline-offset: 2px;
+    }
