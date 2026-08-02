@@ -421,5 +421,14 @@
     "severity": "moderate",
     "image_name": "download (3).jpg",
     "slug": "powdery-mildew"
+  },
+  {
+    "id": 48,
+    "created_at": "2026-08-01T20:46:35.650Z",
+    "disease_name": "Powdery Mildew",
+    "confidence": 0.942,
+    "severity": "moderate",
+    "image_name": "download.jpg",
+    "slug": "powdery-mildew"
   }
 ]
